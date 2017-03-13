@@ -1,10 +1,18 @@
-##MTGKit
+##MTGSDKSwift
 ####Magic: The Gathering SDK - Swift
 #####A lightweight framework that makes interacting with the magicthegathering.io api quick, easy and safe. 
-###!!some info currently subject to change!!
+
+
 
 ####Installation
-Im looking into making a cocoapod and making the project compatible with Carthage. Meanwhile, since it's a small framework the most straightforward way to install is just to download the project and drag the framework file into your project, and make sure to add it to embedded binaries as well. 
+#####Install with Carthage
+
+* copy the Cartfile above into your project folder
+* in terminal, navigate to your project folder and run the command 'carthage update'
+* drag the .framework file into your project in xcode. It will be in the newly creates Carthage/Build/iOS folder in your project directory
+* drag the framework to the Linked Frameworks And Libraries slot and Embedded Frameworks slot
+
+You can also just download this project and drag the framework file into your project instead of messing with Carthage.
 
 
 ####Use
