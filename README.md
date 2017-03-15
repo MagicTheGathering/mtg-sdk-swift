@@ -1,11 +1,11 @@
-##MTGSDKSwift
-####Magic: The Gathering SDK - Swift
-#####A lightweight framework that makes interacting with the magicthegathering.io api quick, easy and safe. 
+## MTGSDKSwift
+#### Magic: The Gathering SDK - Swift
+##### A lightweight framework that makes interacting with the magicthegathering.io api quick, easy and safe. 
 
 
 
-####Installation
-#####Install with Carthage
+#### Installation
+##### Install with Carthage
 
 * copy the Cartfile above into your project folder
 * in terminal, navigate to your project folder and run the command 'carthage update'
@@ -15,7 +15,7 @@
 You can also just download this project and drag the framework file into your project instead of messing with Carthage.
 
 
-####Use
+#### Use
 
 ````swift
 import MTGSDKSwift
@@ -31,7 +31,7 @@ fetchJSON(_:completion:)
 fetchImageForCard(_:completion:)
 generateBoosterForSet(_:completion:)
 ````
-#####First: Configure your search parameters
+##### First: Configure your search parameters
 Parameters can be constructed as follows:
 
 ````swift
@@ -74,10 +74,10 @@ Additionally, some helpful console messages such as the URL string that is being
 ````swift
 Magic.enableLogging = true
 ````
-#####Fetching unparsed json
+##### Fetching unparsed json
 fetchJSON(_:completion:) can be used to get the unparsed json in case you want to do something specific with it.
 
-#####Fetching The Card Image
+##### Fetching The Card Image
 
 fetchImageForCard works similarly to fetchCards, and will retreive the card image of the card you pass to it, if one is available. Some promo and special cards do not contain imageURL data. NetworkError will communicate this if true. Notably, cards in sets whose set code is prepended with "p" (pMEI, pGMD etc) may be missing this data. Most promotional cards will be missing image data as well.
 
@@ -101,12 +101,12 @@ __Important note on image fetching:__ the card imageUrl refers to an HTTP addres
     </dict>
 ````
 
-#####Simulating a Booster
+##### Simulating a Booster
 
 generateBoosterForSet(_:completion:) will return an array of [Card] which simulates what one might find opening a physical booster.
 
 
-####class - Card
+#### class - Card
 ````swift
 public var name: String?
 public var names: [String]?
@@ -150,7 +150,7 @@ The following static function is provided for convienence in order to filter dup
 FilterResults.removeDuplicateCardsByName(_:) -> [Card]
 ````
 
-####class CardSet
+#### class CardSet
 ````swift
 public var code: String?
 public var name: String?
@@ -161,7 +161,7 @@ public var releaseDate: String?
 public var magicCardsInfoCode: String?
 public var booster: [[String]]?
 ````
-####class CardSearchParameter, available parameters
+#### class CardSearchParameter, available parameters
 
 ````swift
 case name
@@ -214,7 +214,7 @@ public enum NetworkError: Error {
 * case miscError(String) 
 	*  associated value will contain information about errors such as constructing URL failures
 
-####Typealiases
+#### Typealiases
 ````swift
 public typealias JSONResults = [String:Any]
 public typealias JSONCompletionWithError = (JSONResults?, NetworkError?) -> Void
