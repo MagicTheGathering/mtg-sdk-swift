@@ -9,7 +9,7 @@
 
 * copy the Cartfile above into your project folder
 * in terminal, navigate to your project folder and run the command 'carthage update'
-* drag the .framework file into your project in xcode. It will be in the newly creates Carthage/Build/iOS folder in your project directory
+* drag the .framework file into your project in xcode. It will be in the newly created Carthage/Build/iOS folder in your project directory
 * drag the framework to the Linked Frameworks And Libraries slot and Embedded Frameworks slot
 
 You can also just download this project and drag the framework file into your project instead of messing with Carthage.
