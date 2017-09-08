@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  s.name         = "mtg-sdk-swift"
+  s.name         = "MTGSDKSwift"
   s.version      = "0.1"
   s.summary      = "A short description of mtg-sdk-swift."
 
@@ -81,7 +81,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/pipeaesac/mtg-sdk-swift.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/MagicTheGathering/mtg-sdk-swift.git", :tag => "#{s.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
