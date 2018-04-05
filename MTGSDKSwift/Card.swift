@@ -41,17 +41,20 @@ public struct Card: Equatable {
     public var originalType: String?
     public var id: String?
     public var flavor: String?
+    public var loyalty: Int?
+    public var gameFormat: String?
     
+    public var legalities: [[String:String]]?
+
+
     public static func ==(lhs: Card, rhs: Card) -> Bool {
         return lhs.id == rhs.id 
     }
     
     /*
     
-    public var loyalty: Int?
     public var watermark: Any?
     public var reserved: Any?
-    public var legalities: Any?
     public var gameFormat: Any?
     public var variations: Any?
     public var releaseDate: Any?

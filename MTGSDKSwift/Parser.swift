@@ -11,14 +11,13 @@ import Foundation
 final class ResultsFilter {
     
     /**
-     If an array of Card contains cards with identical names, likely due to multiple printings, this function leaves only one version of that card. You will only have one "Scathe Zombies" instead of 5 "Scathe Zombie", the only difference between them being the set they were printed in.
-     
+     If an array of Card contains cards with identical names, likely due to multiple printings, this function leaves only one version of that card. You will only have one "Scathe Zombie" instead of 5 "Scathe Zombie", the only difference between them being the set they were printed in.
      
      - parameter cards: [Card]
      - returns: [Card] consisting of Cards without duplicate names
  */
 
-    public static func removeDuplicateCardsByName(_ cards: [Card]) -> [Card] {
+    static public func removeDuplicateCardsByName(_ cards: [Card]) -> [Card] {
         
         var uniqueNames = [String]()
         var uniqueCards = [Card]()
@@ -41,7 +40,7 @@ final class ResultsFilter {
 
 final class Parser {
     
-     func parseCards(json: JSONResults) -> [Card] {
+     static func parseCards(json: JSONResults) -> [Card] {
         
         guard let cards = json["cards"] as? [[String:Any]] else {
             if Magic.enableLogging {
@@ -134,6 +133,15 @@ final class Parser {
             if let id = c["id"] as? String {
                 card.id = id
             }
+            if let loyalty = c["loyalty"] as? Int {
+                card.loyalty = loyalty
+            }
+            if let format = c["gameFormat"] as? String {
+                card.gameFormat = format
+            }
+            if let legality = c["legalities"] as? [[String:String]] {
+                card.legalities = legality
+            }
             
             cardsArray.append(card)
            
@@ -147,7 +155,7 @@ final class Parser {
     }
     
     
-     func parseSets(json: JSONResults) -> [CardSet] {
+     static func parseSets(json: JSONResults) -> [CardSet] {
         
         guard let cardSets = json["sets"] as? [[String:Any]] else {
             if Magic.enableLogging {

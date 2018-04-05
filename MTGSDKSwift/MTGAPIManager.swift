@@ -8,88 +8,64 @@
 
 import Foundation
 
+public struct MTGSearchConfiguration {
+    static var defaultConfiguration: MTGSearchConfiguration {
+        return MTGSearchConfiguration(pageSize: Int(Constants.defaultPageSize) ?? 12,
+                                      pageTotal: Int(Constants.defaultPageTotal) ?? 1)
+    }
+    
+    let pageSize: Int
+    let pageTotal: Int
+    
+    public init(pageSize: Int, pageTotal: Int) {
+        self.pageSize = pageSize
+        self.pageTotal = pageTotal
+    }
+}
 
 public typealias JSONResults = [String:Any]
-public typealias JSONCompletionWithError = (JSONResults?, NetworkError?) -> Void
+public typealias JSONCompletionWithError = (Result<JSONResults>) -> Void
 
+public enum Result<T> {
+    case success(T)
+    case error(NetworkError)
+}
 
-final class URLManager {
+struct Constants {
+    static let baseEndpoint = "https://api.magicthegathering.io/v1"
+    static let generateBoosterPath = "/booster"
+    static let host = "api.magicthegathering.io"
+    static let scheme = "https"
     
-    var pageSize = "6"
-    var pageTotal = "1"
-    
-    
-    func buildURL(parameters: [SearchParameter]) -> URL? {
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = "api.magicthegathering.io"
-        urlComponents.path = {
-            if parameters is [CardSearchParameter] {
-                return "/v1/cards"
-            } else {
-                return "/v1/sets"
-            }
-        }()
-        
-        urlComponents.queryItems = buildQueryItemsFromParameters(parameters)
-        
-        if Magic.enableLogging == true {
-            print("URL: \(urlComponents.url)\n")
-        }
-        
-        return urlComponents.url
-    
-    }
-    
-    private func buildQueryItemsFromParameters(_ parameters: [SearchParameter]) -> [URLQueryItem] {
-        var queryItems = [URLQueryItem]()
-        
-        let pageSizeQuery = URLQueryItem(name: "pageSize", value: pageSize)
-        let pageQuery = URLQueryItem(name: "page", value: pageTotal)
-        queryItems.append(pageQuery)
-        queryItems.append(pageSizeQuery)
-        
-        for parameter in parameters {
-            let name = parameter.name
-            let value = parameter.value
-            let item = URLQueryItem(name: name, value: value)
-            queryItems.append(item)
-        }
-        
-        return queryItems
-    }
+    static let defaultPageSize = "6"
+    static let defaultPageTotal = "1"
     
 }
+
+
 
 
 
 final class MTGAPIService {
     
+    
+    /**
+     - parameter completion: (Result<JSONResults>) -> Void
+ */
     func mtgAPIQuery(url: URL, completion: @escaping JSONCompletionWithError) {
-        
-        var networkError: NetworkError? {
-            didSet {
-                completion(nil, networkError)
-            }
-        }
-
         let networkOperation = NetworkOperation(url: url)
         
-        networkOperation.queryURL {
-            json, error in
-            
-            if error != nil {
-                networkError = error
-                return
+        networkOperation.performOperation {
+            result in
+            switch result {
+            case .success(let json):
+                completion(Result.success(json))
+            case .error(let error):
+                completion(Result.error(error))
             }
-            completion(json, nil)
         }
-        
     }
-    
 }
-
-
 
 final class NetworkOperation {
     
@@ -103,15 +79,15 @@ final class NetworkOperation {
         self.url = url
     }
     
-    func queryURL(completion: @escaping JSONCompletionWithError) {
+    func performOperation(completion: @escaping JSONCompletionWithError) {
         
         if Magic.enableLogging {
-            print("NetworkOperation - beginning queryURL... \n")
+            print("NetworkOperation - beginning performOperation... \n")
         }
         
         var networkError: NetworkError? {
             didSet {
-                completion(nil, networkError)
+                completion(Result.error(networkError!))
             }
         }
         
@@ -123,13 +99,17 @@ final class NetworkOperation {
                 networkError = NetworkError.requestError(error!)
                 return
             }
-            
+            guard data != nil else {
+                networkError = NetworkError.miscError("Network operation - No data returned")
+                return
+            }
+
             if let httpResponse = (response as? HTTPURLResponse) {
+                if Magic.enableLogging {
+                    print("HTTPResponse - status code: \(httpResponse.statusCode)")
+                }
                 switch httpResponse.statusCode {
                 case 200..<300:
-                    if Magic.enableLogging {
-                        print("HTTPResponse success - status code: \(httpResponse.statusCode)")
-                    }
                     break
                 default:
                     networkError = NetworkError.unexpectedHTTPResponse(httpResponse)
@@ -138,10 +118,12 @@ final class NetworkOperation {
             }
             
             do {
-                let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: []) as? JSONResults
-                
-                completion(jsonResponse, nil)
-                
+                let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: [])
+                if let json = jsonResponse as? JSONResults {
+                    completion(Result.success(json))
+                } else {
+                    networkError = NetworkError.miscError("Network operation - invalid json response")
+                }
             } catch {
                 networkError = NetworkError.miscError("json serialization error")
                 return
@@ -152,19 +134,5 @@ final class NetworkOperation {
         
     }
     
-    
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-//
