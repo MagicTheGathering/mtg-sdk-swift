@@ -9,29 +9,27 @@
 import Foundation
 
 final class URLBuilder {
-    func buildURLWithParameters(_ parameters: [SearchParameter],
+    static func buildURLWithParameters(_ parameters: [SearchParameter],
                                 andConfig config: MTGSearchConfiguration = MTGSearchConfiguration.defaultConfiguration) -> URL? {
         var urlComponents = URLComponents()
         urlComponents.scheme = Constants.scheme
         urlComponents.host = Constants.host
         urlComponents.path = {
             if parameters is [CardSearchParameter] {
-                return "/v1/cards"
+                return Constants.cardsEndpoint
             } else {
-                return "/v1/sets"
+                return Constants.setsEndpoint
             }
         }()
         
         urlComponents.queryItems = buildQueryItemsFromParameters(parameters, config)
         
-        if Magic.enableLogging == true {
-            print("URL: \(urlComponents.url)\n")
-        }
+        print("MTGSDK URL: \(String(describing: urlComponents.url))\n")
         
         return urlComponents.url
     }
     
-    private func buildQueryItemsFromParameters(_ parameters: [SearchParameter],
+    private static func buildQueryItemsFromParameters(_ parameters: [SearchParameter],
                                                _ config: MTGSearchConfiguration = MTGSearchConfiguration.defaultConfiguration) -> [URLQueryItem] {
         var queryItems = [URLQueryItem]()
         

@@ -21,26 +21,18 @@ class MTGSDKSwiftTests: XCTestCase {
         super.setUp()
        
         magic = Magic()
-        magic.fetchPageSize = "24"
-        magic.fetchPageTotal = "1"
-        Magic.enableLogging = false
-        
-        magic.fetchCards([param]) {
-            cards, error in
-            
-            if let error = error {
+
+        magic.fetchCardsWithParameters([param]) { (result) in
+            switch result {
+            case .success(let cards):
+                self.cards = cards
+            case .error(let error):
                 self.networkError = error
             }
-            
-            self.cards = cards
-            
         }
-        
-        
     }
     
     override func tearDown() {
-        
         cards = nil
         magic = nil
         image = nil
@@ -51,7 +43,6 @@ class MTGSDKSwiftTests: XCTestCase {
     
     func testError() {
         assert(networkError != nil)
-        
     }
     
     func testCards() {
@@ -60,27 +51,15 @@ class MTGSDKSwiftTests: XCTestCase {
     
     func testImage() {
         magic.fetchImageForCard(self.cards!.first!) {
-         image, error in
-            
-            self.image = image
+            result in
+            switch result {
+            case .success(let image):
+                self.image = image
+            case .error(let error):
+                print(error)
+            }
             
             assert(self.image != nil)
-            
-        }
-        
-        
-    }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
         }
     }
-    
 }

@@ -9,6 +9,7 @@
 import Foundation
 
 public struct CardSet {
+    public init() {}
     
     public var code: String?
     public var name: String?
@@ -18,9 +19,4 @@ public struct CardSet {
     public var releaseDate: String?
     public var magicCardsInfoCode: String?
     public var booster: [[String]]?
-    
-    
-    //public var mkm_id: Int?
-    //public var mkm_name: String?
-    
 }

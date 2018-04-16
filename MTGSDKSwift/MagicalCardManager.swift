@@ -12,15 +12,11 @@ final public class Magic {
     public typealias CardImageCompletion = (Result<UIImage>) -> Void
     public typealias CardCompletion = (Result<[Card]>) -> Void
     public typealias SetCompletion = (Result<[CardSet]>) -> Void
-    
-    public static let enableLogging: Bool = false
-    
+
     private let mtgAPIService: MTGAPIService
-    private let urlBuilder: URLBuilder
     
     public init() {
         self.mtgAPIService = MTGAPIService()
-        self.urlBuilder = URLBuilder()
     }
     
     /**
@@ -39,7 +35,7 @@ final public class Magic {
             }
         }
         
-        guard let url = urlBuilder.buildURLWithParameters(parameters, andConfig: config) else {
+        guard let url = URLBuilder.buildURLWithParameters(parameters, andConfig: config) else {
             networkError = NetworkError.miscError("fetchJSON url build failed")
             return
         }
@@ -60,7 +56,7 @@ final public class Magic {
     /**
      Retreives a UIImage based on the imageURL of the Card passed in
      - parameter card: Card
-     - parameter completion: (UIImage?, NetworkError?) -> Void
+     - parameter completion: (Result<UIImage>) -> Void
      */
     
     public func fetchImageForCard(_ card: Card, completion: @escaping CardImageCompletion) {
@@ -108,7 +104,7 @@ final public class Magic {
             }
         }
         
-        guard let url = urlBuilder.buildURLWithParameters(parameters, andConfig: config) else {
+        guard let url = URLBuilder.buildURLWithParameters(parameters, andConfig: config) else {
             networkError = NetworkError.miscError("fetchSets url build failed")
             return
         }
@@ -140,7 +136,7 @@ final public class Magic {
             }
         }
         
-        guard let url = urlBuilder.buildURLWithParameters(parameters, andConfig: config) else {
+        guard let url = URLBuilder.buildURLWithParameters(parameters, andConfig: config) else {
             networkError = NetworkError.miscError("fetchCards url build failed")
             return
         }

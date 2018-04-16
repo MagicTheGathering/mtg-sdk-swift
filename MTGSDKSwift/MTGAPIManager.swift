@@ -8,21 +8,6 @@
 
 import Foundation
 
-public struct MTGSearchConfiguration {
-    static var defaultConfiguration: MTGSearchConfiguration {
-        return MTGSearchConfiguration(pageSize: Int(Constants.defaultPageSize) ?? 12,
-                                      pageTotal: Int(Constants.defaultPageTotal) ?? 1)
-    }
-    
-    let pageSize: Int
-    let pageTotal: Int
-    
-    public init(pageSize: Int, pageTotal: Int) {
-        self.pageSize = pageSize
-        self.pageTotal = pageTotal
-    }
-}
-
 public typealias JSONResults = [String:Any]
 public typealias JSONCompletionWithError = (Result<JSONResults>) -> Void
 
@@ -31,30 +16,12 @@ public enum Result<T> {
     case error(NetworkError)
 }
 
-struct Constants {
-    static let baseEndpoint = "https://api.magicthegathering.io/v1"
-    static let generateBoosterPath = "/booster"
-    static let host = "api.magicthegathering.io"
-    static let scheme = "https"
-    
-    static let defaultPageSize = "6"
-    static let defaultPageTotal = "1"
-    
-}
-
-
-
-
-
 final class MTGAPIService {
-    
-    
     /**
      - parameter completion: (Result<JSONResults>) -> Void
- */
+     */
     func mtgAPIQuery(url: URL, completion: @escaping JSONCompletionWithError) {
         let networkOperation = NetworkOperation(url: url)
-        
         networkOperation.performOperation {
             result in
             switch result {
@@ -67,7 +34,7 @@ final class MTGAPIService {
     }
 }
 
-final class NetworkOperation {
+final private class NetworkOperation {
     
     let session: URLSession = {
         return URLSession(configuration: URLSessionConfiguration.default)
@@ -80,11 +47,6 @@ final class NetworkOperation {
     }
     
     func performOperation(completion: @escaping JSONCompletionWithError) {
-        
-        if Magic.enableLogging {
-            print("NetworkOperation - beginning performOperation... \n")
-        }
-        
         var networkError: NetworkError? {
             didSet {
                 completion(Result.error(networkError!))
@@ -105,9 +67,8 @@ final class NetworkOperation {
             }
 
             if let httpResponse = (response as? HTTPURLResponse) {
-                if Magic.enableLogging {
-                    print("HTTPResponse - status code: \(httpResponse.statusCode)")
-                }
+                print("MTGSDK HTTPResponse - status code: \(httpResponse.statusCode)")
+            
                 switch httpResponse.statusCode {
                 case 200..<300:
                     break
@@ -131,8 +92,6 @@ final class NetworkOperation {
         }
         
         dataTask.resume()
-        
     }
-    
 }
 

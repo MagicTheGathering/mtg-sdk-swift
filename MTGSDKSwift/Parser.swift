@@ -18,7 +18,6 @@ final class ResultsFilter {
  */
 
     static public func removeDuplicateCardsByName(_ cards: [Card]) -> [Card] {
-        
         var uniqueNames = [String]()
         var uniqueCards = [Card]()
         
@@ -32,20 +31,15 @@ final class ResultsFilter {
         }
         
         return uniqueCards
-        
     }
-    
 }
-
 
 final class Parser {
     
      static func parseCards(json: JSONResults) -> [Card] {
         
         guard let cards = json["cards"] as? [[String:Any]] else {
-            if Magic.enableLogging {
-                print("Parser parseCards - unexpected json: returning empty array")
-            }
+            print("MTGSDK Parser parseCards - unexpected json: returning empty array")
             return [Card]()
         }
         
@@ -142,25 +136,22 @@ final class Parser {
             if let legality = c["legalities"] as? [[String:String]] {
                 card.legalities = legality
             }
+            if let releaseDate = c["releaseDate"] as? String {
+                card.releaseDate = releaseDate
+            }
             
             cardsArray.append(card)
            
         }
         
-        if Magic.enableLogging {
-            print("cards retreived: \(cardsArray.count)")
-        }
-        
+        print("MTGSDK cards retreived: \(cardsArray.count)")
         return cardsArray
     }
-    
     
      static func parseSets(json: JSONResults) -> [CardSet] {
         
         guard let cardSets = json["sets"] as? [[String:Any]] else {
-            if Magic.enableLogging {
-                print("Parser parseSets - unexpected json: returning empty array")
-            }
+            print("MTGSDK Parser parseSets - unexpected json: returning empty array")
             return [CardSet]()
         }
         
@@ -197,11 +188,8 @@ final class Parser {
             sets.append(set)
         }
         
-        if Magic.enableLogging {
-            print("sets retreived: \(sets.count)")
-        }
-        return sets
+        print("MTGSDK sets retreived: \(sets.count)")
         
+        return sets
     }
-
 }
