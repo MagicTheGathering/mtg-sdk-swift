@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
   s.author           = { 'Reed Carson' => 'rpcarson27@gmail.com' }
   s.source           = { :git => 'https://github.com/intere/mtg-sdk-swift.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '10.2'
+  s.ios.deployment_target = '9.0'
   s.source_files = 'MTGSDKSwift/**/*.swift'
   s.swift_version = '4.1'
 
