@@ -4,7 +4,7 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = 'mtg-sdk-swift'
+  s.name             = 'MTGSDKSwift'
   s.version          = '1.0.0'
   s.summary          = 'Magic: The Gathering SDK - Swift'
 
