@@ -6,81 +6,133 @@
 //  Copyright © 2017 Reed Carson. All rights reserved.
 //
 
+import MTGSDKSwift
 import XCTest
-@testable import MTGSDKSwift
 
 class MTGSDKSwiftTests: XCTestCase {
     
-    var cards: [Card]?
-    var magic: Magic!
-    let param = CardSearchParameter(parameterType: .name, value: "lotus")
-    var networkError: NetworkError?
-    var image: UIImage?
+    var magic: Magic = {
+        let magic = Magic()
+        magic.fetchPageSize = "24"
+        magic.fetchPageTotal = "1"
+        return magic
+    }()
     
     override func setUp() {
         super.setUp()
-       
-        magic = Magic()
-        magic.fetchPageSize = "24"
-        magic.fetchPageTotal = "1"
         Magic.enableLogging = false
-        
+    }
+
+}
+
+// MARK: - Card Search Tests
+
+extension MTGSDKSwiftTests {
+
+    func testCardSearchNoResults() {
+        let param = CardSearchParameter(parameterType: .name, value: "abcdefghijk")
+
+        let exp = expectation(description: "fetchCards")
+
         magic.fetchCards([param]) {
             cards, error in
-            
-            if let error = error {
-                self.networkError = error
+
+            defer {
+                exp.fulfill()
             }
-            
-            self.cards = cards
-            
+
+            if let error = error {
+                XCTFail("Error fetching cards: \(error.localizedDescription)")
+            }
+
+            guard let cards = cards else {
+                return XCTFail("No cards came back (nil cards)")
+            }
+
+            XCTAssertTrue(cards.count == 0, "Results came back")
         }
-        
-        
+
+        waitForExpectations(timeout: 10, handler: nil)
     }
-    
-    override func tearDown() {
-        
-        cards = nil
-        magic = nil
-        image = nil
-        networkError = nil
-        
-        super.tearDown()
+
+    func testCardSearchWithCards() {
+        let param = CardSearchParameter(parameterType: .name, value: "lotus")
+
+        let exp = expectation(description: "fetchCards")
+
+        magic.fetchCards([param]) {
+            cards, error in
+
+            defer {
+                exp.fulfill()
+            }
+
+            if let error = error {
+                XCTFail("Error fetching cards: \(error.localizedDescription)")
+            }
+
+            guard let cards = cards else {
+                return XCTFail("No cards came back (nil cards)")
+            }
+
+            XCTAssertTrue(cards.count > 0, "No card results came back")
+        }
+
+        waitForExpectations(timeout: 10, handler: nil)
     }
+
+}
+
+// MARK: - Fetch Image Tests
+
+extension MTGSDKSwiftTests {
     
-    func testError() {
-        assert(networkError != nil)
-        
-    }
-    
-    func testCards() {
-        assert(cards != nil)
-    }
-    
-    func testImage() {
-        magic.fetchImageForCard(self.cards!.first!) {
+    func testFetchValidImage() {
+        var card = Card()
+        card.imageUrl = "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=391870&type=card"
+
+        let exp = expectation(description: "fetchImageForCard")
+
+        magic.fetchImageForCard(card) {
          image, error in
-            
-            self.image = image
-            
-            assert(self.image != nil)
-            
+            defer {
+                exp.fulfill()
+            }
+            if let error = error {
+                XCTFail("Error getting image: \(error.localizedDescription)")
+            }
+
+            guard let image = image else {
+                return XCTFail("Failed to get image for card")
+            }
+            XCTAssertNotNil(image)
         }
-        
-        
+
+        waitForExpectations(timeout: 10, handler: nil)
     }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+
+    func testFetchImageError() {
+        var card = Card()
+        let exp = expectation(description: "fetchImageForCard")
+
+        magic.fetchImageForCard(card) {
+            image, error in
+            defer {
+                exp.fulfill()
+            }
+
+            if image != nil {
+                XCTFail("Got an image back for a card without an image")
+            }
+
+            guard let error = error else {
+                return XCTFail("No error came back for invalid card image")
+            }
+
+            XCTAssertNotNil(error)
         }
+
+        waitForExpectations(timeout: 10, handler: nil)
     }
-    
+
 }
