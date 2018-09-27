@@ -1,0 +1,122 @@
+{
+  "cards": [
+    {
+      "name": "Karn Liberated",
+      "manaCost": "{7}",
+      "cmc": 7,
+      "type": "Legendary Planeswalker — Karn",
+      "supertypes": [
+        "Legendary"
+      ],
+      "types": [
+        "Planeswalker"
+      ],
+      "subtypes": [
+        "Karn"
+      ],
+      "rarity": "Mythic Rare",
+      "set": "MM2",
+      "setName": "Modern Masters 2015 Edition",
+      "text": "+4: Target player exiles a card from their hand.\n−3: Exile target permanent.\n−14: Restart the game, leaving in exile all non-Aura permanent cards exiled with Karn Liberated. Then put those cards onto the battlefield under your control.",
+      "artist": "Jason Chan",
+      "number": "4",
+      "layout": "normal",
+      "multiverseid": 397828,
+      "imageUrl": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=397828&type=card",
+      "loyalty": 6,
+      "rulings": [
+        {
+          "date": "2011-06-01",
+          "text": "Karn's first and third abilities are linked. Similarly, Karn's second and third abilities are linked. Only cards exiled by either of Karn's first two abilities will remain in exile when the game restarts."
+        },
+        {
+          "date": "2011-06-01",
+          "text": "A game that restarts immediately ends. The players in that game then immediately begin a new game. No player wins, loses, or draws the original game as a result of Karn's ability."
+        },
+        {
+          "date": "2011-06-01",
+          "text": "In a multiplayer games (a game that started with three or more players in it), any player that left the game before it was restarted with Karn's ability won't be involved in the new game."
+        },
+        {
+          "date": "2011-06-01",
+          "text": "The player who controlled the ability that restarted the game is the starting player in the new game. The new game starts like a game normally does: -- Each player shuffles their deck (except the cards left in exile by Karn's ability). -- Each player's life total becomes 20 (or the starting life total for whatever format you're playing). -- Players draw a hand of seven cards. Players may take mulligans. -- Players may take actions based on cards in their opening hands, such as Chancellors and Leylines."
+        },
+        {
+          "date": "2011-06-01",
+          "text": "After the pre-game procedure is complete, but before the new game's first turn, Karn's ability finishes resolving and the cards left in exile are put onto the battlefield. If this causes any triggered abilities to trigger, those abilities are put onto the stack at the beginning of the first upkeep step."
+        },
+        {
+          "date": "2011-06-01",
+          "text": "Creatures put onto the battlefield due to Karn's ability will have been under their controller's control continuously since the beginning of the first turn. They can attack and their activated abilities with {T} in the cost can be activated."
+        },
+        {
+          "date": "2011-06-01",
+          "text": "Any permanents put onto the battlefield with Karn's ability that entered the battlefield tapped will untap during their controller's first untap step."
+        },
+        {
+          "date": "2011-06-01",
+          "text": "No actions taken in the game that was restarted apply to the new game. For example, if you were dealt damage by Stigma Lasher in the original game, the effect that states you can't gain life doesn't carry over to the new game."
+        },
+        {
+          "date": "2011-06-01",
+          "text": "Players won't have any poison counters or emblems they had in the original game."
+        },
+        {
+          "date": "2011-06-01",
+          "text": "In a Commander game, players put their commanders into the command zone before shuffling their deck."
+        },
+        {
+          "date": "2011-06-01",
+          "text": "The number of times a player has cast their commander from the command zone resets to zero. Also, the amount of combat damage dealt to players by each commander is reset to 0."
+        },
+        {
+          "date": "2011-06-01",
+          "text": "If a player's commander was exiled with Karn at the game restarted, that commander won't be put into the command zone at the beginning of the game. It will be put onto the battlefield when Karn's ability finishes resolving."
+        },
+        {
+          "date": "2011-06-01",
+          "text": "In a multiplayer game using the limited range of influence option, all players are affected and will restart the game, not just those within the range of influence of the ability's controller."
+        }
+      ],
+      "foreignNames": [
+        {
+          "name": "重获自由的卡恩",
+          "imageUrl": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=398077&type=card",
+          "language": "Chinese Simplified",
+          "multiverseid": 398077
+        },
+        {
+          "name": "解放された者、カーン",
+          "imageUrl": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=398326&type=card",
+          "language": "Japanese",
+          "multiverseid": 398326
+        }
+      ],
+      "printings": [
+        "NPH",
+        "MM2"
+      ],
+      "originalText": "+4: Target player exiles a card from his or her hand.\n−3: Exile target permanent.\n−14: Restart the game, leaving in exile all non-Aura permanent cards exiled with Karn Liberated. Then put those cards onto the battlefield under your control.",
+      "originalType": "Planeswalker — Karn",
+      "legalities": [
+        {
+          "format": "Commander",
+          "legality": "Legal"
+        },
+        {
+          "format": "Legacy",
+          "legality": "Legal"
+        },
+        {
+          "format": "Modern",
+          "legality": "Legal"
+        },
+        {
+          "format": "Vintage",
+          "legality": "Legal"
+        }
+      ],
+      "id": "6dbb000f1dffa20fbb9159b7ac36b814d209558c"
+    }
+  ]
+}

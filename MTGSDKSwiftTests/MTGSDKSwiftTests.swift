@@ -20,7 +20,7 @@ class MTGSDKSwiftTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        Magic.enableLogging = false
+        Magic.enableLogging = true
     }
 
 }
@@ -34,8 +34,7 @@ extension MTGSDKSwiftTests {
 
         let exp = expectation(description: "fetchCards")
 
-        magic.fetchCards([param]) {
-            cards, error in
+        magic.fetchCards([param]) { cards, error in
 
             defer {
                 exp.fulfill()
@@ -60,8 +59,7 @@ extension MTGSDKSwiftTests {
 
         let exp = expectation(description: "fetchCards")
 
-        magic.fetchCards([param]) {
-            cards, error in
+        magic.fetchCards([param]) { cards, error in
 
             defer {
                 exp.fulfill()
@@ -81,6 +79,41 @@ extension MTGSDKSwiftTests {
         waitForExpectations(timeout: 10, handler: nil)
     }
 
+}
+
+// MARK: - Fetch Planeswalker
+
+extension MTGSDKSwiftTests {
+
+    func testFetchKarnAndVerify() {
+        let cardName = "Karn Liberated"
+        let param = CardSearchParameter(parameterType: .name, value: cardName)
+
+        let exp = expectation(description: "fetchCards")
+
+        magic.fetchCards([param]) { cards, error in
+            defer {
+                exp.fulfill()
+            }
+
+            if let error = error {
+                XCTFail("Error fetching cards: \(error.localizedDescription)")
+            }
+
+            guard let cards = cards, let first = cards.first else {
+                return XCTFail("No cards came back (nil cards)")
+            }
+
+            if let firstName = first.name {
+                XCTAssertEqual(cardName, firstName)
+            } else {
+                XCTFail("Card without a name")
+            }
+            XCTAssertEqual(6, first.loyalty)
+        }
+
+        waitForExpectations(timeout: 10, handler: nil)
+    }
 }
 
 // MARK: - Fetch Image Tests
