@@ -33,8 +33,8 @@ final class URLManager {
         
         urlComponents.queryItems = buildQueryItemsFromParameters(parameters)
         
-        if Magic.enableLogging == true {
-            print("URL: \(urlComponents.url)\n")
+        if Magic.enableLogging == true, let url = urlComponents.url {
+            print("URL: \(url)\n")
         }
         
         return urlComponents.url
