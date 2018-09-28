@@ -2,6 +2,7 @@
 # Be sure to run `pod lib lint mtg-sdk-swift.podspec' to ensure this is a
 # valid spec before submitting.
 #
+
  Pod::Spec.new do |s|
   s.name             = 'MTGSDKSwift'
   s.version          = '1.0.0'
