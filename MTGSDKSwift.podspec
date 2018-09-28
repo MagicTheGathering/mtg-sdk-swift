@@ -14,7 +14,7 @@
   s.homepage         = 'https://github.com/MagicTheGathering/mtg-sdk-swift'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Reed Carson' => 'rpcarson27@gmail.com' }
-  s.source           = { :git => 'https://github.com/MagicTheGathering/mtg-sdk-swift', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/MagicTheGathering/mtg-sdk-swift.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '10.2'
   s.source_files = 'MTGSDKSwift/**/*.swift'
