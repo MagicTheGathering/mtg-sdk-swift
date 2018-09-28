@@ -21,6 +21,7 @@ public class CardSearchParameter: SearchParameter {
         case name
         case cmc
         case colors
+        case contains
         case type
         case supertypes
         case subtypes
@@ -32,15 +33,13 @@ public class CardSearchParameter: SearchParameter {
         case toughness
         case multiverseid
         case gameFormat
-        
     }
 
     public init(parameterType: CardQueryParameterType, value: String) {
         super.init()
         self.name = parameterType.rawValue
         self.value = value
-                
-            }
+    }
     
 }
 
@@ -55,12 +54,5 @@ public class SetSearchParameter: SearchParameter {
         super.init()
         self.name = parameterType.rawValue
         self.value = value
-        
     }
 }
-
-
-
-
-
-//
