@@ -14,12 +14,14 @@ public class SearchParameter {
     public var value: String = ""
 }
 
-public final class CardSearchParameter: SearchParameter {
+
+public class CardSearchParameter: SearchParameter {
     
     public enum CardQueryParameterType: String {
         case name
         case cmc
         case colors
+        case contains
         case type
         case supertypes
         case subtypes
@@ -31,9 +33,6 @@ public final class CardSearchParameter: SearchParameter {
         case toughness
         case multiverseid
         case gameFormat
-        case loyalty
-        case legality
-        case releaseDate
     }
 
     public init(parameterType: CardQueryParameterType, value: String) {
@@ -41,9 +40,10 @@ public final class CardSearchParameter: SearchParameter {
         self.name = parameterType.rawValue
         self.value = value
     }
+    
 }
 
-public final class SetSearchParameter: SearchParameter {
+public class SetSearchParameter: SearchParameter {
     
     public enum SetQueryParameterType: String {
         case name
@@ -54,6 +54,5 @@ public final class SetSearchParameter: SearchParameter {
         super.init()
         self.name = parameterType.rawValue
         self.value = value
-        
     }
 }

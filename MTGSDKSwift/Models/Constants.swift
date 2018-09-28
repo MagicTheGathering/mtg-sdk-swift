@@ -15,6 +15,6 @@ struct Constants {
     static let setsEndpoint = "/v1/sets"
     static let host = "api.magicthegathering.io"
     static let scheme = "https"
-    static let defaultPageSize = "6"
+    static let defaultPageSize = "12"
     static let defaultPageTotal = "1"
 }
