@@ -21,6 +21,7 @@ class MTGSDKSwiftTests: XCTestCase {
     override func setUp() {
         super.setUp()
         Magic.enableLogging = true
+
     }
 
 }
@@ -36,6 +37,7 @@ extension MTGSDKSwiftTests {
 
         magic.fetchCards([param]) { cards, error in
 
+
             defer {
                 exp.fulfill()
             }
@@ -47,6 +49,7 @@ extension MTGSDKSwiftTests {
             guard let cards = cards else {
                 return XCTFail("No cards came back (nil cards)")
             }
+
 
             XCTAssertTrue(cards.count == 0, "Results came back")
         }
@@ -92,6 +95,7 @@ extension MTGSDKSwiftTests {
         let exp = expectation(description: "fetchCards")
 
         magic.fetchCards([param]) { cards, error in
+
             defer {
                 exp.fulfill()
             }
@@ -110,6 +114,7 @@ extension MTGSDKSwiftTests {
                 XCTFail("Card without a name")
             }
             XCTAssertEqual(6, first.loyalty)
+
         }
 
         waitForExpectations(timeout: 10, handler: nil)
