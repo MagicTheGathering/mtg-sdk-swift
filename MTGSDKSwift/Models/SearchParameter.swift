@@ -58,7 +58,7 @@ public final class CardSearchParameter: SearchParameter {
         case multiverseid
         case gameFormat
         case loyalty
-        case legalities
+        case legality
         case releaseDate
 
      //   case custom(String)

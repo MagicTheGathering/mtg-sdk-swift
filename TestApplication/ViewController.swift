@@ -19,11 +19,10 @@ class ViewController: UIViewController {
         let color = CardSearchParameter(parameterType: .colors, value: "black")
         let type = CardSearchParameter(parameterType: .type, value: "planeswalker")
         let loyal = CardSearchParameter(parameterType: .loyalty, value: "5")
-        let legal = CardSearchParameter(parameterType: .legalities, value: "banned")
+        let legal = CardSearchParameter(parameterType: .legality, value: "Banned")
         let config = MTGSearchConfiguration(pageSize: 60, pageTotal: 1)
-        let customParam = CardSearchParameter(parameterType: .custom("colors"), value: "black")
 
-        magic.fetchCardsWithParameters([customParam], andConfig: config) { (result) in
+        magic.fetchCardsWithParameters([color], andConfig: config) { (result) in
             switch result {
             case .error(let error):
                 print(error)
