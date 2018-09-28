@@ -9,7 +9,7 @@
 import Foundation
 
 public struct MTGSearchConfiguration {
-    static var defaultConfiguration: MTGSearchConfiguration {
+    public static var defaultConfiguration: MTGSearchConfiguration {
         return MTGSearchConfiguration(pageSize: Int(Constants.defaultPageSize) ?? 12,
                                       pageTotal: Int(Constants.defaultPageTotal) ?? 1)
     }

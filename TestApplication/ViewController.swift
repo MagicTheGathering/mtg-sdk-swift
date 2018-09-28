@@ -22,7 +22,7 @@ class ViewController: UIViewController {
         let legal = CardSearchParameter(parameterType: .legality, value: "Banned")
         let config = MTGSearchConfiguration(pageSize: 60, pageTotal: 1)
 
-        magic.fetchCardsWithParameters([color], andConfig: config) { (result) in
+        magic.fetchCards([color], config) { (result) in
             switch result {
             case .error(let error):
                 print(error)

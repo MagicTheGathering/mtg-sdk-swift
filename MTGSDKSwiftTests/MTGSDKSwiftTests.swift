@@ -16,7 +16,6 @@ class MTGSDKSwiftTests: XCTestCase {
     override func setUp() {
         super.setUp()
     }
-
 }
 
 // MARK: - Card Search Tests
@@ -25,11 +24,9 @@ extension MTGSDKSwiftTests {
 
     func testCardSearchNoResults() {
         let param = CardSearchParameter(parameterType: .name, value: "abcdefghijk")
-
         let exp = expectation(description: "fetchCards")
 
         magic.fetchCards([param]) { (result) in
-            
             defer {
                 exp.fulfill()
             }
@@ -41,17 +38,14 @@ extension MTGSDKSwiftTests {
                 XCTFail("Error fetching cards: \(error.localizedDescription)")
             }
         }
-
         waitForExpectations(timeout: 10, handler: nil)
     }
 
     func testCardSearchWithCards() {
         let param = CardSearchParameter(parameterType: .name, value: "lotus")
-
         let exp = expectation(description: "fetchCards")
 
         magic.fetchCards([param]) { (result) in
-
             defer {
                 exp.fulfill()
             }
@@ -63,10 +57,35 @@ extension MTGSDKSwiftTests {
                 XCTFail("Error fetching cards: \(error.localizedDescription)")
             }
         }
-
         waitForExpectations(timeout: 10, handler: nil)
     }
+}
 
+// MARK: - Fetch Planeswalker
+
+extension MTGSDKSwiftTests {
+
+    func testFetchKarnAndVerify() {
+        let cardName = "Karn Liberated"
+        let param = CardSearchParameter(parameterType: .name, value: cardName)
+
+        let exp = expectation(description: "fetchCards")
+
+        magic.fetchCards([param]) { (result) in
+            defer {
+                exp.fulfill()
+            }
+            
+            switch result {
+            case .success(let cards):
+                XCTAssertEqual(cardName, cards.first?.name)
+                XCTAssertEqual(6, cards.first?.loyalty)
+            case .error(let error):
+                XCTFail("Error fetching cards: \(error.localizedDescription)")
+            }
+        }
+        waitForExpectations(timeout: 10, handler: nil)
+    }
 }
 
 // MARK: - Fetch Image Tests
@@ -106,7 +125,7 @@ extension MTGSDKSwiftTests {
             switch result {
             case .success:
                 XCTFail("Got an image back for a card without an image")
-            case .error(let error):
+            case .error:
                 break
             }
         }

@@ -25,6 +25,7 @@ public struct Card: Equatable {
     public var subtypes: [String]?
     public var rarity: String?
     public var set: String?
+    public var setName: String?
     public var text: String?
     public var artist: String?
     public var number: String?
@@ -42,9 +43,9 @@ public struct Card: Equatable {
     public var flavor: String?
     public var loyalty: Int?
     public var gameFormat: String?
-    public var legalities: [[String:String]]?
     public var releaseDate: String?
-
+    public var legalities = [String: String]()
+    
     public static func ==(lhs: Card, rhs: Card) -> Bool {
         return lhs.id == rhs.id 
     }
