@@ -20,14 +20,79 @@ final public class Magic {
     }
     
     /**
+     Reteives an array of Cards which match the parameters given
+     - parameter parameters: [CardSearchParameter]
+     - parameter configuration: MTGSearchConfiguration
+     - parameter completion: (Result<[Card]>) -> Void
+     */
+    public func fetchCards(_ parameters: [CardSearchParameter],
+                           _ configuration: MTGSearchConfiguration = MTGSearchConfiguration.defaultConfiguration,
+                           _ completion: @escaping CardCompletion) {
+        var networkError: NetworkError? {
+            didSet {
+                completion(Result.error(networkError!))
+            }
+        }
+        
+        guard let url = URLBuilder.buildURLWithParameters(parameters, andConfig: configuration) else {
+            networkError = NetworkError.miscError("fetchCards url build failed")
+            return
+        }
+        
+        mtgAPIService.mtgAPIQuery(url: url) {
+            result in
+            switch result {
+            case .success(let json):
+                let cards = Parser.parseCards(json: json)
+                completion(Result.success(cards))
+            case .error(let error):
+                networkError = error
+            }
+        }
+    }
+    
+    /**
+     Reteives an array of CardSet which matches the parameters given
+     - parameter parameters: [SetSearchParameter]
+     - parameter configuration: MTGSearchConfiguration
+     - parameter completion: (Result<[CardSet]>)-> Void
+     */
+    
+    public func fetchSets(_ parameters: [SetSearchParameter],
+                          _ configuration: MTGSearchConfiguration = MTGSearchConfiguration.defaultConfiguration,
+                          _ completion: @escaping SetCompletion) {
+        var networkError: NetworkError? {
+            didSet {
+                completion(Result.error(networkError!))
+            }
+        }
+        
+        guard let url = URLBuilder.buildURLWithParameters(parameters, andConfig: configuration) else {
+            networkError = NetworkError.miscError("fetchSets url build failed")
+            return
+        }
+        
+        mtgAPIService.mtgAPIQuery(url: url) {
+            result in
+            switch result {
+            case .success(let json):
+                let sets = Parser.parseSets(json: json)
+                completion(Result.success(sets))
+            case .error(let error):
+                networkError = error
+            }
+        }
+    }
+    
+    /**
      Fetch JSON returns the raw json data rather than an Array of Card or CardSet. It will return json for sets or cards depending on what you feed it
      - parameter parameters: either [CardSearchParameter] or [SetSearchParameter]
      - parameter config: MTGSearchConfiguration
      - parameter completion: (Result<JSONResults>) -> Void
     */
-    public func fetchJSONWithParameters(_ parameters: [SearchParameter],
-                                        andConfig config: MTGSearchConfiguration = MTGSearchConfiguration.defaultConfiguration,
-                                        _ completion: @escaping JSONCompletionWithError) {
+    public func fetchJSON(_ parameters: [SearchParameter],
+                          _ configuration: MTGSearchConfiguration = MTGSearchConfiguration.defaultConfiguration,
+                          _ completion: @escaping JSONCompletionWithError) {
         
         var networkError: NetworkError? {
             didSet {
@@ -35,7 +100,7 @@ final public class Magic {
             }
         }
         
-        guard let url = URLBuilder.buildURLWithParameters(parameters, andConfig: config) else {
+        guard let url = URLBuilder.buildURLWithParameters(parameters, andConfig: configuration) else {
             networkError = NetworkError.miscError("fetchJSON url build failed")
             return
         }
@@ -59,7 +124,8 @@ final public class Magic {
      - parameter completion: (Result<UIImage>) -> Void
      */
     
-    public func fetchImageForCard(_ card: Card, completion: @escaping CardImageCompletion) {
+    public func fetchImageForCard(_ card: Card,
+                                  _ completion: @escaping CardImageCompletion) {
         var networkError: NetworkError? {
             didSet {
                 completion(Result.error(networkError!))
@@ -88,77 +154,14 @@ final public class Magic {
         }
         
     }
-    /**
-     Reteives an array of CardSet which matches the parameters given
-     - parameter parameters: [SetSearchParameter]
-     - parameter config: MTGSearchConfiguration
-     - parameter completion: (Result<[CardSet]>)-> Void
-    */
-    
-    public func fetchSetsWithParameters(_ parameters: [SetSearchParameter],
-                                        andConfig config: MTGSearchConfiguration = MTGSearchConfiguration.defaultConfiguration,
-                                        _ completion: @escaping SetCompletion) {
-        var networkError: NetworkError? {
-            didSet {
-                completion(Result.error(networkError!))
-            }
-        }
-        
-        guard let url = URLBuilder.buildURLWithParameters(parameters, andConfig: config) else {
-            networkError = NetworkError.miscError("fetchSets url build failed")
-            return
-        }
-        
-        mtgAPIService.mtgAPIQuery(url: url) {
-            result in
-            switch result {
-            case .success(let json):
-                let sets = Parser.parseSets(json: json)
-                completion(Result.success(sets))
-            case .error(let error):
-                networkError = error
-            }
-        }
-    }
-    
-    /**
-     Reteives an array of Cards which match the parameters given
-     - parameter parameters: [CardSearchParameter]
-     - parameter config: MTGSearchConfiguration
-     - parameter completion: (Result<[Card]>) -> Void
-     */
-    public func fetchCardsWithParameters(_ parameters: [CardSearchParameter],
-                                         andConfig config: MTGSearchConfiguration = MTGSearchConfiguration.defaultConfiguration,
-                                         _ completion: @escaping CardCompletion) {
-        var networkError: NetworkError? {
-            didSet {
-                completion(Result.error(networkError!))
-            }
-        }
-        
-        guard let url = URLBuilder.buildURLWithParameters(parameters, andConfig: config) else {
-            networkError = NetworkError.miscError("fetchCards url build failed")
-            return
-        }
-        
-        mtgAPIService.mtgAPIQuery(url: url) {
-            result in
-            switch result {
-            case .success(let json):
-                let cards = Parser.parseCards(json: json)
-                completion(Result.success(cards))
-            case .error(let error):
-                networkError = error
-            }
-        }
-    }
     
     /**
      This function simulates opening a booster pack for the given set, producing an array of [Card]
      - parameter setCode: String: the set code of the desired set
      - parameter completion: (Result<[Card]>) -> Void
     */
-    public func generateBoosterForSet(_ setCode: String, completion: @escaping CardCompletion) {
+    public func generateBoosterForSet(_ setCode: String,
+                                      _ completion: @escaping CardCompletion) {
         var networkError: NetworkError? {
             didSet {
                 completion(Result.error(networkError!))

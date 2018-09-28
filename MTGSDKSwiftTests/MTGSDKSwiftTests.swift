@@ -28,7 +28,7 @@ extension MTGSDKSwiftTests {
 
         let exp = expectation(description: "fetchCards")
 
-        magic.fetchCardsWithParameters([param]) { (result) in
+        magic.fetchCards([param]) { (result) in
             
             defer {
                 exp.fulfill()
@@ -50,7 +50,7 @@ extension MTGSDKSwiftTests {
 
         let exp = expectation(description: "fetchCards")
 
-        magic.fetchCardsWithParameters([param]) { (result) in
+        magic.fetchCards([param]) { (result) in
 
             defer {
                 exp.fulfill()
@@ -84,8 +84,7 @@ extension MTGSDKSwiftTests {
             }
             
             switch result {
-            case .success(let image):
-             //   XCTAssertNotNil(image)
+            case .success:
                 break
             case .error(let error):
                 XCTFail("Error getting image: \(error.localizedDescription)")
