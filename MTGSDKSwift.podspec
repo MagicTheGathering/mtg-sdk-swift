@@ -20,3 +20,4 @@
   s.source_files = 'MTGSDKSwift/**/*.swift'
   s.swift_version = '4.1'
  end
+ 

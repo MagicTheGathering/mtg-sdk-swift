@@ -42,7 +42,7 @@ final class ResultsFilter {
 final class Parser {
     
      func parseCards(json: JSONResults) -> [Card] {
-        
+
         guard let cards = json["cards"] as? [[String:Any]] else {
             if Magic.enableLogging {
                 print("Parser parseCards - unexpected json: returning empty array")
@@ -92,6 +92,9 @@ final class Parser {
             if let set = c["set"] as? String {
                 card.set = set
             }
+            if let setName = c["setName"] as? String {
+                card.setName = setName
+            }
             if let text = c["text"] as? String {
                 card.text = text
             }
@@ -133,6 +136,18 @@ final class Parser {
             }
             if let id = c["id"] as? String {
                 card.id = id
+            }
+            if let loyalty = c["loyalty"] as? Int {
+                card.loyalty = loyalty
+            }
+            if let legalities = c["legalities"] as? [[String: String]] {
+                for pair in legalities {
+                    guard let format = pair["format"],
+                        let legality = pair["legality"] else {
+                            continue
+                    }
+                    card.legalities[format] = legality
+                }
             }
             
             cardsArray.append(card)

@@ -9,9 +9,8 @@
 import Foundation
 
 
-public typealias JSONResults = [String:Any]
+public typealias JSONResults = [String: Any]
 public typealias JSONCompletionWithError = (JSONResults?, NetworkError?) -> Void
-
 
 final class URLManager {
     

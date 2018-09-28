@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		36A5C33E215C9710007E280E /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A5C33D215C9710007E280E /* ParserTests.swift */; };
+		36A5C341215C9824007E280E /* karn.json in Resources */ = {isa = PBXBuildFile; fileRef = 36A5C340215C9824007E280E /* karn.json */; };
 		5B18A9821E69EB0B0026E648 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18A9811E69EB0B0026E648 /* NetworkError.swift */; };
 		5B6DC20C1E64A01A000DF60C /* CardSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6DC20B1E64A01A000DF60C /* CardSet.swift */; };
 		5B6DC20E1E64A1A0000DF60C /* SearchParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6DC20D1E64A1A0000DF60C /* SearchParameter.swift */; };
@@ -30,6 +32,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		36A5C33D215C9710007E280E /* ParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
+		36A5C340215C9824007E280E /* karn.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = karn.json; sourceTree = "<group>"; };
 		5B18A9811E69EB0B0026E648 /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		5B6DC20B1E64A01A000DF60C /* CardSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSet.swift; sourceTree = "<group>"; };
 		5B6DC20D1E64A1A0000DF60C /* SearchParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchParameter.swift; sourceTree = "<group>"; };
@@ -64,6 +68,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		36A5C33F215C9732007E280E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				36A5C340215C9824007E280E /* karn.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		5BD04D9F1E64943C00E5ED27 = {
 			isa = PBXGroup;
 			children = (
@@ -101,8 +113,10 @@
 		5BD04DB61E64943C00E5ED27 /* MTGSDKSwiftTests */ = {
 			isa = PBXGroup;
 			children = (
+				36A5C33F215C9732007E280E /* Resources */,
 				5BD04DB71E64943C00E5ED27 /* MTGSDKSwiftTests.swift */,
 				5BD04DB91E64943C00E5ED27 /* Info.plist */,
+				36A5C33D215C9710007E280E /* ParserTests.swift */,
 			);
 			path = MTGSDKSwiftTests;
 			sourceTree = "<group>";
@@ -211,6 +225,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36A5C341215C9824007E280E /* karn.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,6 +250,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36A5C33E215C9710007E280E /* ParserTests.swift in Sources */,
 				5BD04DB81E64943C00E5ED27 /* MTGSDKSwiftTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
