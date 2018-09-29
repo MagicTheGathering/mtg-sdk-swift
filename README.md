@@ -7,12 +7,13 @@
 <img src="https://img.shields.io/cocoapods/l/MTGSDKSwift.svg?style=flat">
 
 
+#### Installation
+
 ##### Install with Cocoapods
 ```ruby
 pod 'MTGSDKSwift'
 ```
 
-#### Installation
 ##### Install with Carthage
 
 * copy the Cartfile above into your project folder
