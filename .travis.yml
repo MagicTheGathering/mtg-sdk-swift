@@ -1,0 +1,4 @@
+language: objective-c
+osx_image: xcode10
+script:
+- bundle exec fastlane test
