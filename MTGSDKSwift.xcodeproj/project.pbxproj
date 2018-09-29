@@ -24,7 +24,7 @@
 		5BD04DB81E64943C00E5ED27 /* MTGSDKSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD04DB71E64943C00E5ED27 /* MTGSDKSwiftTests.swift */; };
 		5BD04DBA1E64943C00E5ED27 /* MTGSDKSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BD04DAC1E64943C00E5ED27 /* MTGSDKSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BD04DC51E64945800E5ED27 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD04DC31E64945800E5ED27 /* Card.swift */; };
-		5BD04DC61E64945800E5ED27 /* MTGAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD04DC41E64945800E5ED27 /* MTGAPIManager.swift */; };
+		5BD04DC61E64945800E5ED27 /* MTGAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD04DC41E64945800E5ED27 /* MTGAPIService.swift */; };
 		5BD04DC81E64958800E5ED27 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD04DC71E64958800E5ED27 /* Parser.swift */; };
 		5BDF34C820854F1B007265DF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDF34C720854F1B007265DF /* Constants.swift */; };
 		5BDF34CB2085500E007265DF /* MTGSearchConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDF34CA2085500E007265DF /* MTGSearchConfiguration.swift */; };
@@ -83,7 +83,7 @@
 		5BD04DB71E64943C00E5ED27 /* MTGSDKSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTGSDKSwiftTests.swift; sourceTree = "<group>"; };
 		5BD04DB91E64943C00E5ED27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BD04DC31E64945800E5ED27 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
-		5BD04DC41E64945800E5ED27 /* MTGAPIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTGAPIManager.swift; sourceTree = "<group>"; };
+		5BD04DC41E64945800E5ED27 /* MTGAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTGAPIService.swift; sourceTree = "<group>"; };
 		5BD04DC71E64958800E5ED27 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		5BDF34C720854F1B007265DF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5BDF34CA2085500E007265DF /* MTGSearchConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTGSearchConfiguration.swift; sourceTree = "<group>"; };
@@ -164,7 +164,7 @@
 				5BDF34C920854F72007265DF /* Models */,
 				5BD04DAD1E64943C00E5ED27 /* Info.plist */,
 				5BD04DAC1E64943C00E5ED27 /* MTGSDKSwift.h */,
-				5BD04DC41E64945800E5ED27 /* MTGAPIManager.swift */,
+				5BD04DC41E64945800E5ED27 /* MTGAPIService.swift */,
 				5BE24D1F2076D14A00EB0573 /* URLBuilder.swift */,
 				5BD04DC71E64958800E5ED27 /* Parser.swift */,
 				5BC6D7ED1E67B7A00090650A /* MagicalCardManager.swift */,
@@ -282,7 +282,6 @@
 					};
 					5BD04DA81E64943C00E5ED27 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = Y948R2WGKG;
 						ProvisioningStyle = Automatic;
 					};
 					5BD04DB11E64943C00E5ED27 = {
@@ -358,7 +357,7 @@
 				5BC6D7EE1E67B7A00090650A /* MagicalCardManager.swift in Sources */,
 				5B18A9821E69EB0B0026E648 /* NetworkError.swift in Sources */,
 				5BD04DC51E64945800E5ED27 /* Card.swift in Sources */,
-				5BD04DC61E64945800E5ED27 /* MTGAPIManager.swift in Sources */,
+				5BD04DC61E64945800E5ED27 /* MTGAPIService.swift in Sources */,
 				5B6DC20E1E64A1A0000DF60C /* SearchParameter.swift in Sources */,
 				5BDF34CB2085500E007265DF /* MTGSearchConfiguration.swift in Sources */,
 				5BE24D202076D14A00EB0573 /* URLBuilder.swift in Sources */,
@@ -572,7 +571,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = Y948R2WGKG;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -592,7 +591,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = Y948R2WGKG;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";

@@ -20,6 +20,7 @@ public final class CardSearchParameter: SearchParameter {
         case name
         case cmc
         case colors
+        case contains
         case type
         case supertypes
         case subtypes
