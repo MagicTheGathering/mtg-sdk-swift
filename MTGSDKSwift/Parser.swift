@@ -11,15 +11,13 @@ import Foundation
 final class ResultsFilter {
     
     /**
-     If an array of Card contains cards with identical names, likely due to multiple printings, this function leaves only one version of that card. You will only have one "Scathe Zombies" instead of 5 "Scathe Zombie", the only difference between them being the set they were printed in.
-     
+     If an array of Card contains cards with identical names, likely due to multiple printings, this function leaves only one version of that card. You will only have one "Scathe Zombie" instead of 5 "Scathe Zombie", the only difference between them being the set they were printed in.
      
      - parameter cards: [Card]
      - returns: [Card] consisting of Cards without duplicate names
  */
 
-    public static func removeDuplicateCardsByName(_ cards: [Card]) -> [Card] {
-        
+    static public func removeDuplicateCardsByName(_ cards: [Card]) -> [Card] {
         var uniqueNames = [String]()
         var uniqueCards = [Card]()
         
@@ -33,20 +31,15 @@ final class ResultsFilter {
         }
         
         return uniqueCards
-        
     }
-    
 }
-
 
 final class Parser {
     
-     func parseCards(json: JSONResults) -> [Card] {
+     static func parseCards(json: JSONResults) -> [Card] {
 
         guard let cards = json["cards"] as? [[String:Any]] else {
-            if Magic.enableLogging {
-                print("Parser parseCards - unexpected json: returning empty array")
-            }
+            debugPrint("MTGSDK Parser parseCards - unexpected json: returning empty array")
             return [Card]()
         }
         
@@ -140,6 +133,13 @@ final class Parser {
             if let loyalty = c["loyalty"] as? Int {
                 card.loyalty = loyalty
             }
+            if let format = c["gameFormat"] as? String {
+                card.gameFormat = format
+            }
+           
+            if let releaseDate = c["releaseDate"] as? String {
+                card.releaseDate = releaseDate
+            }
             if let legalities = c["legalities"] as? [[String: String]] {
                 for pair in legalities {
                     guard let format = pair["format"],
@@ -154,20 +154,14 @@ final class Parser {
            
         }
         
-        if Magic.enableLogging {
-            print("cards retreived: \(cardsArray.count)")
-        }
-        
+        debugPrint("MTGSDK cards retreived: \(cardsArray.count)")
         return cardsArray
     }
     
-    
-     func parseSets(json: JSONResults) -> [CardSet] {
+     static func parseSets(json: JSONResults) -> [CardSet] {
         
         guard let cardSets = json["sets"] as? [[String:Any]] else {
-            if Magic.enableLogging {
-                print("Parser parseSets - unexpected json: returning empty array")
-            }
+            debugPrint("MTGSDK Parser parseSets - unexpected json: returning empty array")
             return [CardSet]()
         }
         
@@ -204,11 +198,8 @@ final class Parser {
             sets.append(set)
         }
         
-        if Magic.enableLogging {
-            print("sets retreived: \(sets.count)")
-        }
-        return sets
+        debugPrint("MTGSDK sets retreived: \(sets.count)")
         
+        return sets
     }
-
 }

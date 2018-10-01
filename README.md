@@ -8,12 +8,10 @@
 
 
 #### Installation
-
 ##### Install with Cocoapods
-```ruby
-pod 'MTGSDKSwift'
-```
-
+- add `pod 'MTGSDKSwift'` to your podfile
+- run pod install
+ 
 ##### Install with Carthage
 
 * copy the Cartfile above into your project folder

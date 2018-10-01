@@ -10,13 +10,11 @@
 import XCTest
 
 class ParserTests: XCTestCase {
-
-    let parser = Parser()
     var karn: Card? {
         guard let karn = readMapped(jsonfile: "karn.json") else {
             return nil
         }
-        return parser.parseCards(json: karn).first
+        return Parser.parseCards(json: karn).first
     }
 
     func testReadKarn() {
