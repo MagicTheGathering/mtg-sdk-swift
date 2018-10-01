@@ -8,8 +8,6 @@
 
 import Foundation
 
-//TODO - Implement extra card properties
-
 public struct Card: Equatable {
     public init() {}
     

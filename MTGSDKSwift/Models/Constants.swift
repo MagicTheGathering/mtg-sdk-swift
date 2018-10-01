@@ -18,3 +18,22 @@ struct Constants {
     static let defaultPageSize = "12"
     static let defaultPageTotal = "1"
 }
+
+/// If logging is enabled, this function performs debug logging to the console for you with the
+/// context of where it came from.
+/// ## Example
+/// ```
+/// [MTGAPIService.swift:67:performOperation(completion:)]: MTGSDK HTTPResponse - status code: 200
+/// ```
+///
+/// - Parameters:
+///   - message: The message you'd like logged.
+///   - file: The message source code file.
+///   - function: The message source function.
+///   - line: The message source line.
+func debugPrint(_ message: String, file: String = #file, function: String = #function, line: Int = #line ) {
+    guard Magic.enableLogging else {
+        return
+    }
+    print("[\((file as NSString).lastPathComponent):\(line):\(function)]: \(message)")
+}

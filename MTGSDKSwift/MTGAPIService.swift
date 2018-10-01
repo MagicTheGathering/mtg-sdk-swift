@@ -1,5 +1,5 @@
 //
-//  MTGAPIManager.swift
+//  MTGAPIService.swift
 //  mtg-sdk-swift
 //
 //  Created by Reed Carson on 2/24/17.
@@ -17,9 +17,13 @@ public enum Result<T> {
 }
 
 final class MTGAPIService {
-    /**
-     - parameter completion: (Result<JSONResults>) -> Void
-     */
+
+    /// Performs A query against the MTG APIs and calls back to the provided completion handler
+    /// with a success or failure.
+    ///
+    /// - Parameters:
+    ///   - url: The MTG URL to hit.
+    ///   - completion: The completion handler block to handle the response.
     func mtgAPIQuery(url: URL, completion: @escaping JSONCompletionWithError) {
         let networkOperation = NetworkOperation(url: url)
         networkOperation.performOperation {
@@ -32,6 +36,7 @@ final class MTGAPIService {
             }
         }
     }
+
 }
 
 final private class NetworkOperation {
@@ -46,48 +51,37 @@ final private class NetworkOperation {
         self.url = url
     }
     
-    func performOperation(completion: @escaping JSONCompletionWithError) {
-        var networkError: NetworkError? {
-            didSet {
-                completion(Result.error(networkError!))
-            }
-        }
-        
+    func performOperation(completion: @escaping JSONCompletionWithError) {        
         let request = URLRequest(url: url)
-        let dataTask = session.dataTask(with: request) {
-            data, response, error in
-            
-            guard error == nil else {
-                networkError = NetworkError.requestError(error!)
-                return
+        let dataTask = session.dataTask(with: request) { data, response, error in
+
+            if let error = error {
+                return completion(Result.error(NetworkError.requestError(error)))
             }
-            guard data != nil else {
-                networkError = NetworkError.miscError("Network operation - No data returned")
-                return
+
+            guard let data = data else {
+                return completion(Result.error(NetworkError.miscError("Network operation - No data returned")))
             }
 
             if let httpResponse = (response as? HTTPURLResponse) {
-                print("MTGSDK HTTPResponse - status code: \(httpResponse.statusCode)")
+                debugPrint("MTGSDK HTTPResponse - status code: \(httpResponse.statusCode)")
             
                 switch httpResponse.statusCode {
                 case 200..<300:
                     break
                 default:
-                    networkError = NetworkError.unexpectedHTTPResponse(httpResponse)
-                    return
+                    return completion(Result.error(NetworkError.unexpectedHTTPResponse(httpResponse)))
                 }
             }
             
             do {
-                let jsonResponse = try JSONSerialization.jsonObject(with: data!, options: [])
-                if let json = jsonResponse as? JSONResults {
-                    completion(Result.success(json))
-                } else {
-                    networkError = NetworkError.miscError("Network operation - invalid json response")
+                let jsonResponse = try JSONSerialization.jsonObject(with: data, options: [])
+                guard let json = jsonResponse as? JSONResults else {
+                    return completion(Result.error(NetworkError.miscError("Network operation - invalid json response")))
                 }
+                completion(Result.success(json))
             } catch {
-                networkError = NetworkError.miscError("json serialization error")
-                return
+                completion(Result.error(NetworkError.miscError("json serialization error")))
             }
         }
         

@@ -37,9 +37,9 @@ final class ResultsFilter {
 final class Parser {
     
      static func parseCards(json: JSONResults) -> [Card] {
-        
+
         guard let cards = json["cards"] as? [[String:Any]] else {
-            print("MTGSDK Parser parseCards - unexpected json: returning empty array")
+            debugPrint("MTGSDK Parser parseCards - unexpected json: returning empty array")
             return [Card]()
         }
         
@@ -154,14 +154,14 @@ final class Parser {
            
         }
         
-        print("MTGSDK cards retreived: \(cardsArray.count)")
+        debugPrint("MTGSDK cards retreived: \(cardsArray.count)")
         return cardsArray
     }
     
      static func parseSets(json: JSONResults) -> [CardSet] {
         
         guard let cardSets = json["sets"] as? [[String:Any]] else {
-            print("MTGSDK Parser parseSets - unexpected json: returning empty array")
+            debugPrint("MTGSDK Parser parseSets - unexpected json: returning empty array")
             return [CardSet]()
         }
         
@@ -198,7 +198,7 @@ final class Parser {
             sets.append(set)
         }
         
-        print("MTGSDK sets retreived: \(sets.count)")
+        debugPrint("MTGSDK sets retreived: \(sets.count)")
         
         return sets
     }

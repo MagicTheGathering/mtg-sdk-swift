@@ -24,7 +24,7 @@ final class URLBuilder {
         
         urlComponents.queryItems = buildQueryItemsFromParameters(parameters, config)
         
-        print("MTGSDK URL: \(String(describing: urlComponents.url))\n")
+        debugPrint("MTGSDK URL: \(String(describing: urlComponents.url))\n")
         
         return urlComponents.url
     }
