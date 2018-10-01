@@ -11,19 +11,11 @@ import XCTest
 
 class MTGSDKSwiftTests: XCTestCase {
     
-    var magic: Magic = {
-        let magic = Magic()
-        magic.fetchPageSize = "24"
-        magic.fetchPageTotal = "1"
-        return magic
-    }()
+    var magic: Magic = Magic()
     
     override func setUp() {
         super.setUp()
-        Magic.enableLogging = true
-
     }
-
 }
 
 // MARK: - Card Search Tests
@@ -32,56 +24,41 @@ extension MTGSDKSwiftTests {
 
     func testCardSearchNoResults() {
         let param = CardSearchParameter(parameterType: .name, value: "abcdefghijk")
-
         let exp = expectation(description: "fetchCards")
 
-        magic.fetchCards([param]) { cards, error in
-
-
+        magic.fetchCards([param]) { (result) in
             defer {
                 exp.fulfill()
             }
 
-            if let error = error {
+            switch result {
+            case .success(let cards):
+                XCTAssertTrue(cards.count == 0, "Results came back")
+            case .error(let error):
                 XCTFail("Error fetching cards: \(error.localizedDescription)")
             }
-
-            guard let cards = cards else {
-                return XCTFail("No cards came back (nil cards)")
-            }
-
-
-            XCTAssertTrue(cards.count == 0, "Results came back")
         }
-
         waitForExpectations(timeout: 10, handler: nil)
     }
 
     func testCardSearchWithCards() {
         let param = CardSearchParameter(parameterType: .name, value: "lotus")
-
         let exp = expectation(description: "fetchCards")
 
-        magic.fetchCards([param]) { cards, error in
-
+        magic.fetchCards([param]) { (result) in
             defer {
                 exp.fulfill()
             }
-
-            if let error = error {
+            
+            switch result {
+            case .success(let cards):
+                XCTAssertTrue(cards.count > 0, "No card results came back")
+            case .error(let error):
                 XCTFail("Error fetching cards: \(error.localizedDescription)")
             }
-
-            guard let cards = cards else {
-                return XCTFail("No cards came back (nil cards)")
-            }
-
-            XCTAssertTrue(cards.count > 0, "No card results came back")
         }
-
         waitForExpectations(timeout: 10, handler: nil)
     }
-
 }
 
 // MARK: - Fetch Planeswalker
@@ -94,29 +71,19 @@ extension MTGSDKSwiftTests {
 
         let exp = expectation(description: "fetchCards")
 
-        magic.fetchCards([param]) { cards, error in
-
+        magic.fetchCards([param]) { (result) in
             defer {
                 exp.fulfill()
             }
-
-            if let error = error {
+            
+            switch result {
+            case .success(let cards):
+                XCTAssertEqual(cardName, cards.first?.name)
+                XCTAssertEqual(6, cards.first?.loyalty)
+            case .error(let error):
                 XCTFail("Error fetching cards: \(error.localizedDescription)")
             }
-
-            guard let cards = cards, let first = cards.first else {
-                return XCTFail("No cards came back (nil cards)")
-            }
-
-            if let firstName = first.name {
-                XCTAssertEqual(cardName, firstName)
-            } else {
-                XCTFail("Card without a name")
-            }
-            XCTAssertEqual(6, first.loyalty)
-
         }
-
         waitForExpectations(timeout: 10, handler: nil)
     }
 }
@@ -124,26 +91,23 @@ extension MTGSDKSwiftTests {
 // MARK: - Fetch Image Tests
 
 extension MTGSDKSwiftTests {
-    
     func testFetchValidImage() {
         var card = Card()
         card.imageUrl = "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=391870&type=card"
 
         let exp = expectation(description: "fetchImageForCard")
 
-        magic.fetchImageForCard(card) {
-         image, error in
+        magic.fetchImageForCard(card) { (result) in
             defer {
                 exp.fulfill()
             }
-            if let error = error {
+            
+            switch result {
+            case .success:
+                break
+            case .error(let error):
                 XCTFail("Error getting image: \(error.localizedDescription)")
             }
-
-            guard let image = image else {
-                return XCTFail("Failed to get image for card")
-            }
-            XCTAssertNotNil(image)
         }
 
         waitForExpectations(timeout: 10, handler: nil)
@@ -152,25 +116,20 @@ extension MTGSDKSwiftTests {
     func testFetchImageError() {
         var card = Card()
         let exp = expectation(description: "fetchImageForCard")
-
-        magic.fetchImageForCard(card) {
-            image, error in
+        
+        magic.fetchImageForCard(card) { (result) in
             defer {
                 exp.fulfill()
             }
-
-            if image != nil {
+            
+            switch result {
+            case .success:
                 XCTFail("Got an image back for a card without an image")
+            case .error:
+                break
             }
-
-            guard let error = error else {
-                return XCTFail("No error came back for invalid card image")
-            }
-
-            XCTAssertNotNil(error)
         }
 
         waitForExpectations(timeout: 10, handler: nil)
     }
-
 }
