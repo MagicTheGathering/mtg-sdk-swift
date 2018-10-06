@@ -38,7 +38,7 @@ public final class Parser {
     
      public static func parseCards(json: JSONResults) -> [Card] {
 
-        guard let cards = json["cards"] as? [[String: Any]] else {
+        guard let cards = json[JsonKeys.cards] as? [[String: Any]] else {
             debugPrint("MTGSDK Parser parseCards - unexpected json: returning empty array")
             return [Card]()
         }
@@ -209,6 +209,8 @@ public final class Parser {
 extension Parser {
 
     public struct JsonKeys {
+        public static let cards = "cards"
+
         public static let name = "name"
         public static let names = "names"
         public static let manaCost = "manaCost"
@@ -243,5 +245,5 @@ extension Parser {
         public static let legalityFormat = "format"
         public static let legalityLegality = "legality"
     }
-    
+
 }
