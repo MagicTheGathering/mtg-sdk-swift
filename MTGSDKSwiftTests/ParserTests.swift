@@ -6,7 +6,7 @@
 //  Copyright © 2018 Reed Carson. All rights reserved.
 //
 
-@testable import MTGSDKSwift
+import MTGSDKSwift
 import XCTest
 
 class ParserTests: XCTestCase {

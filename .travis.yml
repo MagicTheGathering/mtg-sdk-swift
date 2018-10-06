@@ -3,3 +3,4 @@ osx_image: xcode10
 script:
 - bundle exec fastlane test
 - pod lib lint MTGSDKSwift.podspec
+- cd tvExample && pod install && bundle exec fastlane test
