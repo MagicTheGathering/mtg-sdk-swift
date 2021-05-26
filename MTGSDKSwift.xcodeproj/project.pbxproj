@@ -277,7 +277,7 @@
 				TargetAttributes = {
 					5B87D68320596D6B0098553C = {
 						CreatedOnToolsVersion = 9.1;
-						DevelopmentTeam = Y948R2WGKG;
+						DevelopmentTeam = X68KF89T7U;
 						ProvisioningStyle = Automatic;
 					};
 					5BD04DA81E64943C00E5ED27 = {
@@ -297,6 +297,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -427,12 +428,12 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y948R2WGKG;
+				DEVELOPMENT_TEAM = X68KF89T7U;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = TestApplication/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.rpcarson.MTGSDKSwift.TestApplication;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rpcarson.MTGSDKSwift.Test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -455,12 +456,12 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Y948R2WGKG;
+				DEVELOPMENT_TEAM = X68KF89T7U;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = TestApplication/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.rpcarson.MTGSDKSwift.TestApplication;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rpcarson.MTGSDKSwift.Test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

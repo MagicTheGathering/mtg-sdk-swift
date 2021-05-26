@@ -31,14 +31,9 @@ final public class Magic {
     public func fetchCards(_ parameters: [CardSearchParameter],
                            configuration: MTGSearchConfiguration = .defaultConfiguration,
                            completion: @escaping CardCompletion) {
-        var networkError: NetworkError? {
-            didSet {
-                completion(Result.error(networkError!))
-            }
-        }
-        
+
         guard let url = URLBuilder.buildURLWithParameters(parameters, andConfig: configuration) else {
-            networkError = NetworkError.miscError("fetchCards url build failed")
+            completion(Result.error(NetworkError.miscError("fetchCards url build failed")))
             return
         }
         
@@ -48,9 +43,8 @@ final public class Magic {
             case .success(let json):
                 let cards = Parser.parseCards(json: json)
                 completion(Result.success(cards))
-
             case .error(let error):
-                networkError = error
+                completion(Result.error(error))
             }
         }
     }
@@ -75,7 +69,6 @@ final public class Magic {
             case .success(let json):
                 let sets = Parser.parseSets(json: json)
                 completion(Result.success(sets))
-
             case .error(let error):
                 completion(Result.error(error))
             }
@@ -93,14 +86,8 @@ final public class Magic {
                           configuration: MTGSearchConfiguration = .defaultConfiguration,
                           completion: @escaping JSONCompletionWithError) {
         
-        var networkError: NetworkError? {
-            didSet {
-                completion(Result.error(networkError!))
-            }
-        }
-        
         guard let url = URLBuilder.buildURLWithParameters(parameters, andConfig: configuration) else {
-            networkError = NetworkError.miscError("fetchJSON url build failed")
+            completion(Result.error(NetworkError.miscError("fetchJSON url build failed")))
             return
         }
         
@@ -109,9 +96,8 @@ final public class Magic {
             switch result {
             case .success:
                 completion(result)
-
             case .error(let error):
-                networkError = NetworkError.requestError(error)
+                completion(Result.error(NetworkError.requestError(error)))
                 return
             }
         }

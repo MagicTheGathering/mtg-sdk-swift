@@ -40,21 +40,14 @@ final class MTGAPIService {
 }
 
 final private class NetworkOperation {
-    
-    let session: URLSession = {
-        return URLSession(configuration: URLSessionConfiguration.default)
-    }()
-    
     let url: URL
     
     init(url: URL) {
         self.url = url
     }
     
-    func performOperation(completion: @escaping JSONCompletionWithError) {        
-        let request = URLRequest(url: url)
-        let dataTask = session.dataTask(with: request) { data, response, error in
-
+    func performOperation(completion: @escaping JSONCompletionWithError) {
+        URLSession.shared.dataTask(with: URLRequest(url: url)) { (data, response, error) in
             if let error = error {
                 return completion(Result.error(NetworkError.requestError(error)))
             }
@@ -83,9 +76,7 @@ final private class NetworkOperation {
             } catch {
                 completion(Result.error(NetworkError.miscError("json serialization error")))
             }
-        }
-        
-        dataTask.resume()
+        }.resume()
     }
 }
 
