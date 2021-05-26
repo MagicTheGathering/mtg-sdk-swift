@@ -66,8 +66,7 @@ extension MTGSDKSwiftTests {
 extension MTGSDKSwiftTests {
 
     func testFetchKarnAndVerify() {
-        let cardName = "Karn Liberated"
-        let param = CardSearchParameter(parameterType: .name, value: cardName)
+        let param = CardSearchParameter(parameterType: .name, value: "Karn Liberated")
 
         let exp = expectation(description: "fetchCards")
 
@@ -78,8 +77,18 @@ extension MTGSDKSwiftTests {
             
             switch result {
             case .success(let cards):
-                XCTAssertEqual(cardName, cards.first?.name)
-                XCTAssertEqual(6, cards.first?.loyalty)
+                guard let card = cards.first(where: {$0.id == "fc5dff7e-489f-5a42-bf3f-926985aaef4a" }) else {
+                    XCTFail("unable to fetch expected test card")
+                    return
+                }
+                XCTAssertEqual("Karn Liberated", card.name)
+                XCTAssertEqual("6", cards.first?.loyalty)
+                XCTAssertEqual("{7}", card.manaCost)
+                XCTAssertEqual(7, card.cmc)
+                XCTAssertEqual(nil, card.colors)
+                XCTAssertEqual(nil, card.colorIdentity)
+                XCTAssertEqual("Legendary Planeswalker — Karn", card.type)
+                XCTAssertEqual(["Legendary"], card.supertypes)
             case .error(let error):
                 XCTFail("Error fetching cards: \(error.localizedDescription)")
             }
@@ -114,7 +123,7 @@ extension MTGSDKSwiftTests {
     }
 
     func testFetchImageError() {
-        var card = Card()
+        let card = Card()
         let exp = expectation(description: "fetchImageForCard")
         
         magic.fetchImageForCard(card) { (result) in
@@ -130,6 +139,6 @@ extension MTGSDKSwiftTests {
             }
         }
 
-        waitForExpectations(timeout: 10, handler: nil)
+        waitForExpectations(timeout: 2, handler: nil)
     }
 }

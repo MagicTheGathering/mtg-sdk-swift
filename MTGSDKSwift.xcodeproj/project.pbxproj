@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		36A5C33E215C9710007E280E /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A5C33D215C9710007E280E /* ParserTests.swift */; };
 		5B18A9821E69EB0B0026E648 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B18A9811E69EB0B0026E648 /* NetworkError.swift */; };
 		5B6092D9215EA8E000CDD46A /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 5B6092D8215EA8DF00CDD46A /* Resources */; };
 		5B6DC20C1E64A01A000DF60C /* CardSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6DC20B1E64A01A000DF60C /* CardSet.swift */; };
@@ -25,7 +24,6 @@
 		5BD04DBA1E64943C00E5ED27 /* MTGSDKSwift.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BD04DAC1E64943C00E5ED27 /* MTGSDKSwift.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5BD04DC51E64945800E5ED27 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD04DC31E64945800E5ED27 /* Card.swift */; };
 		5BD04DC61E64945800E5ED27 /* MTGAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD04DC41E64945800E5ED27 /* MTGAPIService.swift */; };
-		5BD04DC81E64958800E5ED27 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD04DC71E64958800E5ED27 /* Parser.swift */; };
 		5BDF34C820854F1B007265DF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDF34C720854F1B007265DF /* Constants.swift */; };
 		5BDF34CB2085500E007265DF /* MTGSearchConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDF34CA2085500E007265DF /* MTGSearchConfiguration.swift */; };
 		5BE24D202076D14A00EB0573 /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE24D1F2076D14A00EB0573 /* URLBuilder.swift */; };
@@ -63,7 +61,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		36A5C33D215C9710007E280E /* ParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
 		5B18A9811E69EB0B0026E648 /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		5B6092D8215EA8DF00CDD46A /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
 		5B6DC20B1E64A01A000DF60C /* CardSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSet.swift; sourceTree = "<group>"; };
@@ -84,7 +81,6 @@
 		5BD04DB91E64943C00E5ED27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5BD04DC31E64945800E5ED27 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		5BD04DC41E64945800E5ED27 /* MTGAPIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTGAPIService.swift; sourceTree = "<group>"; };
-		5BD04DC71E64958800E5ED27 /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		5BDF34C720854F1B007265DF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5BDF34CA2085500E007265DF /* MTGSearchConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTGSearchConfiguration.swift; sourceTree = "<group>"; };
 		5BE24D1F2076D14A00EB0573 /* URLBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
@@ -166,7 +162,6 @@
 				5BD04DAC1E64943C00E5ED27 /* MTGSDKSwift.h */,
 				5BD04DC41E64945800E5ED27 /* MTGAPIService.swift */,
 				5BE24D1F2076D14A00EB0573 /* URLBuilder.swift */,
-				5BD04DC71E64958800E5ED27 /* Parser.swift */,
 				5BC6D7ED1E67B7A00090650A /* MagicalCardManager.swift */,
 			);
 			path = MTGSDKSwift;
@@ -178,7 +173,6 @@
 				5B6092D8215EA8DF00CDD46A /* Resources */,
 				5BD04DB71E64943C00E5ED27 /* MTGSDKSwiftTests.swift */,
 				5BD04DB91E64943C00E5ED27 /* Info.plist */,
-				36A5C33D215C9710007E280E /* ParserTests.swift */,
 			);
 			path = MTGSDKSwiftTests;
 			sourceTree = "<group>";
@@ -363,7 +357,6 @@
 				5BDF34CB2085500E007265DF /* MTGSearchConfiguration.swift in Sources */,
 				5BE24D202076D14A00EB0573 /* URLBuilder.swift in Sources */,
 				5B6DC20C1E64A01A000DF60C /* CardSet.swift in Sources */,
-				5BD04DC81E64958800E5ED27 /* Parser.swift in Sources */,
 				5BDF34C820854F1B007265DF /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -372,7 +365,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				36A5C33E215C9710007E280E /* ParserTests.swift in Sources */,
 				5BD04DB81E64943C00E5ED27 /* MTGSDKSwiftTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -13,4 +13,5 @@ public enum NetworkError: Error {
     case unexpectedHTTPResponse(HTTPURLResponse)
     case fetchCardImageError(String)
     case miscError(String)
+    case decodableError(Error)
 }
