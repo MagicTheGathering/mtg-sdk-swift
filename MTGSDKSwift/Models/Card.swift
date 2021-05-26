@@ -52,7 +52,7 @@ public struct Card: Equatable, Decodable {
 public struct ForeignName: Decodable {
     public var name: String
     public var language: String
-    public var multiverseid: Int
+    public var multiverseid: Int?
 }
 
 public struct Legality: Decodable {

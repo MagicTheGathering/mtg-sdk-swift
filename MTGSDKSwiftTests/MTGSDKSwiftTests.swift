@@ -33,7 +33,7 @@ extension MTGSDKSwiftTests {
 
             switch result {
             case .success(let cards):
-                XCTAssertTrue(cards.count == 0, "Results came back")
+                XCTAssertTrue(cards.count == 0)
             case .error(let error):
                 XCTFail("Error fetching cards: \(error.localizedDescription)")
             }
@@ -52,7 +52,7 @@ extension MTGSDKSwiftTests {
             
             switch result {
             case .success(let cards):
-                XCTAssertTrue(cards.count > 0, "No card results came back")
+                XCTAssertTrue(cards.count > 0)
             case .error(let error):
                 XCTFail("Error fetching cards: \(error.localizedDescription)")
             }
@@ -139,6 +139,6 @@ extension MTGSDKSwiftTests {
             }
         }
 
-        waitForExpectations(timeout: 2, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
     }
 }
