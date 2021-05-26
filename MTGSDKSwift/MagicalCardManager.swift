@@ -31,26 +31,19 @@ final public class Magic {
     public func fetchCards(_ parameters: [CardSearchParameter],
                            configuration: MTGSearchConfiguration = .defaultConfiguration,
                            completion: @escaping CardCompletion) {
-        var networkError: NetworkError? {
-            didSet {
-                completion(Result.error(networkError!))
-            }
-        }
-        
+
         guard let url = URLBuilder.buildURLWithParameters(parameters, andConfig: configuration) else {
-            networkError = NetworkError.miscError("fetchCards url build failed")
+            completion(Result.error(NetworkError.miscError("fetchCards url build failed")))
             return
         }
         
-        mtgAPIService.mtgAPIQuery(url: url) {
+        mtgAPIService.mtgAPIQuery(url: url, responseObject: CardsResponse.self) {
             result in
             switch result {
-            case .success(let json):
-                let cards = Parser.parseCards(json: json)
-                completion(Result.success(cards))
-
+            case .success(let results):
+                completion(Result.success(results.cards))
             case .error(let error):
-                networkError = error
+                completion(Result.error(error))
             }
         }
     }
@@ -69,13 +62,11 @@ final public class Magic {
             return completion(Result.error(NetworkError.miscError("fetchSets url build failed")))
         }
         
-        mtgAPIService.mtgAPIQuery(url: url) {
+        mtgAPIService.mtgAPIQuery(url: url, responseObject: SetsResponse.self) {
             result in
             switch result {
-            case .success(let json):
-                let sets = Parser.parseSets(json: json)
-                completion(Result.success(sets))
-
+            case .success(let setsResponse):
+                completion(Result.success(setsResponse.sets))
             case .error(let error):
                 completion(Result.error(error))
             }
@@ -91,27 +82,20 @@ final public class Magic {
     ///   - completion: The completion handler (for success / failure response).
     public func fetchJSON(_ parameters: [SearchParameter],
                           configuration: MTGSearchConfiguration = .defaultConfiguration,
-                          completion: @escaping JSONCompletionWithError) {
-        
-        var networkError: NetworkError? {
-            didSet {
-                completion(Result.error(networkError!))
-            }
-        }
+                          completion: @escaping (Result<JSONResults>) -> Void) {
         
         guard let url = URLBuilder.buildURLWithParameters(parameters, andConfig: configuration) else {
-            networkError = NetworkError.miscError("fetchJSON url build failed")
+            completion(Result.error(NetworkError.miscError("fetchJSON url build failed")))
             return
         }
         
-        mtgAPIService.mtgAPIQuery(url: url) {
+        mtgAPIService.jsonQuery(url: url) {
             result in
             switch result {
             case .success:
                 completion(result)
-
             case .error(let error):
-                networkError = NetworkError.requestError(error)
+                completion(Result.error(NetworkError.requestError(error)))
                 return
             }
         }
@@ -154,16 +138,40 @@ final public class Magic {
             return completion(Result.error(NetworkError.miscError("generateBooster - build url fail")))
         }
         
-        mtgAPIService.mtgAPIQuery(url: url) {
+        mtgAPIService.mtgAPIQuery(url: url, responseObject: CardsResponse.self) {
             result in
             switch result {
-            case .success(let json):
-                let cards = Parser.parseCards(json: json)
-                completion(Result.success(cards))
-
+            case .success(let results):
+                completion(Result.success(results.cards))
             case .error(let error):
                 completion(Result.error(error))
             }
         }
+    }
+}
+
+final public class ResultsFilter {
+    
+    /**
+     If an array of Card contains cards with identical names, likely due to multiple printings, this function leaves only one version of that card. You will only have one "Scathe Zombie" instead of 5 "Scathe Zombie", the only difference between them being the set they were printed in.
+     
+     - parameter cards: [Card]
+     - returns: [Card] consisting of Cards without duplicate names
+     */
+    
+    static public func removeDuplicateCardsByName(_ cards: [Card]) -> [Card] {
+        var uniqueNames = [String]()
+        var uniqueCards = [Card]()
+        
+        for c in cards {
+            if let name = c.name {
+                if !uniqueNames.contains(name) {
+                    uniqueCards.append(c)
+                }
+                uniqueNames.append(name)
+            }
+        }
+        
+        return uniqueCards
     }
 }

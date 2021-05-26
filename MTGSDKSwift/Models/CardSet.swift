@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct CardSet {
+public struct CardSet: Decodable {
     public init() {}
     
     public var code: String?
@@ -19,4 +19,8 @@ public struct CardSet {
     public var releaseDate: String?
     public var magicCardsInfoCode: String?
     public var booster: [[String]]?
+}
+
+public struct SetsResponse: ResponseObject, Decodable {
+    public var sets: [CardSet]
 }

@@ -9,12 +9,14 @@
 import Foundation
 
 public typealias JSONResults = [String:Any]
-public typealias JSONCompletionWithError = (Result<JSONResults>) -> Void
+typealias JSONDataCompletion = (Result<(data: Data, json: JSONResults)>) -> Void
 
 public enum Result<T> {
     case success(T)
     case error(NetworkError)
 }
+
+protocol ResponseObject: Decodable {}
 
 final class MTGAPIService {
 
@@ -24,37 +26,47 @@ final class MTGAPIService {
     /// - Parameters:
     ///   - url: The MTG URL to hit.
     ///   - completion: The completion handler block to handle the response.
-    func mtgAPIQuery(url: URL, completion: @escaping JSONCompletionWithError) {
+    func mtgAPIQuery<T: ResponseObject>(url: URL, responseObject: T.Type, completion: @escaping (Result<T>) -> Void) {
         let networkOperation = NetworkOperation(url: url)
         networkOperation.performOperation {
             result in
             switch result {
             case .success(let json):
-                completion(Result.success(json))
+                do {
+                    let result = try JSONDecoder().decode(T.self, from: json.data)
+                    completion(Result.success(result))
+                } catch {
+                    completion(Result.error(NetworkError.decodableError(error)))
+                }
             case .error(let error):
                 completion(Result.error(error))
             }
         }
     }
-
+    
+    func jsonQuery(url: URL, completion: @escaping (Result<JSONResults>) -> Void) {
+        let networkOperation = NetworkOperation(url: url)
+        networkOperation.performOperation {
+            result in
+            switch result {
+            case .success(let json):
+                completion(Result.success(json.json))
+            case .error(let error):
+                completion(Result.error(error))
+            }
+        }
+    }
 }
 
 final private class NetworkOperation {
-    
-    let session: URLSession = {
-        return URLSession(configuration: URLSessionConfiguration.default)
-    }()
-    
     let url: URL
     
     init(url: URL) {
         self.url = url
     }
     
-    func performOperation(completion: @escaping JSONCompletionWithError) {        
-        let request = URLRequest(url: url)
-        let dataTask = session.dataTask(with: request) { data, response, error in
-
+    func performOperation(completion: @escaping JSONDataCompletion) {
+        URLSession.shared.dataTask(with: URLRequest(url: url)) { (data, response, error) in
             if let error = error {
                 return completion(Result.error(NetworkError.requestError(error)))
             }
@@ -79,13 +91,10 @@ final private class NetworkOperation {
                 guard let json = jsonResponse as? JSONResults else {
                     return completion(Result.error(NetworkError.miscError("Network operation - invalid json response")))
                 }
-                completion(Result.success(json))
+                completion(Result.success((data, json)))
             } catch {
                 completion(Result.error(NetworkError.miscError("json serialization error")))
             }
-        }
-        
-        dataTask.resume()
+        }.resume()
     }
 }
-
