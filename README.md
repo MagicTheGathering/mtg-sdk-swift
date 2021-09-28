@@ -49,7 +49,7 @@ let setCode = CardSearchParameter(parameterType: .set, value: "AER")
 
 Search parameters come in two flavors: Card and SetSearchParameter. Each one contains an enum holding the valid query names for either cards or sets searches.
 
-Desired search paramters are grouped into an array and passed to the fetch method.
+Desired search parameters are grouped into an array and passed to the fetch method.
 
 ````swift
 magic.fetchCards(withParameters: [color,cmc,setCode]) {
