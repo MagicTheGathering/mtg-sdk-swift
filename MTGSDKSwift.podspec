@@ -5,7 +5,7 @@
 
  Pod::Spec.new do |s|
   s.name             = 'MTGSDKSwift'
-  s.version          = '1.0.1'
+  s.version          = '1.1'
   s.summary          = 'Magic: The Gathering SDK - Swift'
   s.description      = <<-DESC
   A lightweight framework that makes interacting with the magicthegathering.io api quick, easy and safe.
