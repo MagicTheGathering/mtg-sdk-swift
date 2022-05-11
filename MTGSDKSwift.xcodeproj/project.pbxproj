@@ -11,6 +11,7 @@
 		5B6092D9215EA8E000CDD46A /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 5B6092D8215EA8DF00CDD46A /* Resources */; };
 		5B6DC20C1E64A01A000DF60C /* CardSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6DC20B1E64A01A000DF60C /* CardSet.swift */; };
 		5B6DC20E1E64A1A0000DF60C /* SearchParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6DC20D1E64A1A0000DF60C /* SearchParameter.swift */; };
+		5B71E73A282BED55006C7D1F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5B71E739282BED55006C7D1F /* README.md */; };
 		5B87D68720596D6B0098553C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B87D68620596D6B0098553C /* AppDelegate.swift */; };
 		5B87D68920596D6B0098553C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B87D68820596D6B0098553C /* ViewController.swift */; };
 		5B87D68C20596D6B0098553C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B87D68A20596D6B0098553C /* Main.storyboard */; };
@@ -65,6 +66,8 @@
 		5B6092D8215EA8DF00CDD46A /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
 		5B6DC20B1E64A01A000DF60C /* CardSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSet.swift; sourceTree = "<group>"; };
 		5B6DC20D1E64A1A0000DF60C /* SearchParameter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchParameter.swift; sourceTree = "<group>"; };
+		5B71E739282BED55006C7D1F /* README.md */ = {isa = PBXFileReference; explicitFileType = net.daringfireball.markdown; fileEncoding = 4; path = README.md; sourceTree = "<group>"; };
+		5B71E73B282BEFFD006C7D1F /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		5B87D68420596D6B0098553C /* TestApplication.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestApplication.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B87D68620596D6B0098553C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B87D68820596D6B0098553C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -136,6 +139,8 @@
 		5BD04D9F1E64943C00E5ED27 = {
 			isa = PBXGroup;
 			children = (
+				5B71E739282BED55006C7D1F /* README.md */,
+				5B71E73B282BEFFD006C7D1F /* Package.swift */,
 				5BD04DAB1E64943C00E5ED27 /* MTGSDKSwift */,
 				5BD04DB61E64943C00E5ED27 /* MTGSDKSwiftTests */,
 				5B87D68520596D6B0098553C /* TestApplication */,
@@ -322,6 +327,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B71E73A282BED55006C7D1F /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -501,7 +507,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -548,7 +554,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -571,6 +577,7 @@
 				INFOPLIST_FILE = MTGSDKSwift/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rpcarson.MTGSDKSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -591,6 +598,7 @@
 				INFOPLIST_FILE = MTGSDKSwift/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 1.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.rpcarson.MTGSDKSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

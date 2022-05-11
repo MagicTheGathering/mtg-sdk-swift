@@ -8,6 +8,9 @@
 
 
 #### Installation
+
+##### Install with SPM
+
 ##### Install with Cocoapods
 - add `pod 'MTGSDKSwift'` to your podfile
 - run pod install
