@@ -55,7 +55,6 @@ final public class Magic {
     ///   - parameters: The Card Search Parameters that you'd like to search with.
     ///   - configuration: The Search Configuration (defaults to `.defaultConfiguration`).
     ///   - completion: The completion handler (for success / failure response).
-    @available(iOS 15.0, *)
     public func fetchCards(_ parameters: [CardSearchParameter],
                            configuration: MTGSearchConfiguration = .defaultConfiguration) async throws -> [Card] {
         guard let url = URLBuilder.buildURLWithParameters(parameters, andConfig: configuration) else {
