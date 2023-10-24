@@ -48,6 +48,23 @@ final public class Magic {
         }
     }
     
+    /// Retrieves an array of Cards which match the parameters given using Swift concurrency and utilizes `async await`.
+    /// See https://docs.magicthegathering.io/#api_v1cards_list for more info.
+    ///
+    /// - Parameters:
+    ///   - parameters: The Card Search Parameters that you'd like to search with.
+    ///   - configuration: The Search Configuration (defaults to `.defaultConfiguration`).
+    ///   - completion: The completion handler (for success / failure response).
+    @available(iOS 15.0, *)
+    public func fetchCards(_ parameters: [CardSearchParameter],
+                           configuration: MTGSearchConfiguration = .defaultConfiguration) async throws -> [Card] {
+        guard let url = URLBuilder.buildURLWithParameters(parameters, andConfig: configuration) else {
+            throw NetworkError.miscError("fetchCards URL build failed")
+        }
+        
+        return try await mtgAPIService.mtgAPIQuery(url: url, responseObject: CardsResponse.self).cards
+    }
+    
     /// Reteives an array of CardSet which matches the parameters given.
     /// See https://docs.magicthegathering.io/#api_v1sets_list for more info.
     ///

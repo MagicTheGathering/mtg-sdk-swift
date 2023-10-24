@@ -44,6 +44,19 @@ final class MTGAPIService {
         }
     }
     
+    @available(iOS 15.0, *)
+    func mtgAPIQuery<T: ResponseObject>(url: URL, responseObject: T.Type) async throws -> T {
+        let networkOperation = NetworkOperation(url: url)
+        
+        let responseData = try await networkOperation.performOperation()
+
+        do {
+            return try JSONDecoder().decode(T.self, from: responseData)
+        } catch {
+            throw NetworkError.decodableError(error)
+        }
+    }
+    
     func jsonQuery(url: URL, completion: @escaping (Result<JSONResults>) -> Void) {
         let networkOperation = NetworkOperation(url: url)
         networkOperation.performOperation {
@@ -96,5 +109,26 @@ final private class NetworkOperation {
                 completion(Result.error(NetworkError.miscError("json serialization error")))
             }
         }.resume()
+    }
+    
+    @available(iOS 15.0, *)
+    func performOperation() async throws -> Data {
+        let (data, response) = try await URLSession.shared.data(for: URLRequest(url: url))
+        
+        guard data.count > 0 else {
+            throw NetworkError.miscError("Network operation - No data returned")
+        }
+        
+        if let httpResponse = (response as? HTTPURLResponse) {
+            debugPrint("MTGSDK HTTPResponse - status code: \(httpResponse.statusCode)")
+            switch httpResponse.statusCode {
+            case 200..<300:
+                break
+            default:
+                throw NetworkError.unexpectedHTTPResponse(httpResponse)
+            }
+        }
+        
+        return data
     }
 }
