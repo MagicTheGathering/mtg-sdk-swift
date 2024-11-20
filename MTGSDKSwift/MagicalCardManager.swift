@@ -5,11 +5,13 @@
 //  Created by Reed Carson on 3/1/17.
 //  Copyright © 2017 Reed Carson. All rights reserved.
 //
-
+#if canImport(AppKit)
+import AppKit
+#elseif canImport(UIKit)
 import UIKit
+#endif
 
 final public class Magic {
-    public typealias CardImageCompletion = (Result<UIImage>) -> Void
     public typealias CardCompletion = (Result<[Card]>) -> Void
     public typealias SetCompletion = (Result<[CardSet]>) -> Void
 
@@ -54,6 +56,7 @@ final public class Magic {
     /// - Parameters:
     ///   - parameters: The Card Search Parameters that you'd like to search with.
     ///   - configuration: The Search Configuration (defaults to `.defaultConfiguration`).
+    @available(iOS 15.0, *)
     public func fetchCards(_ parameters: [CardSearchParameter],
                            configuration: MTGSearchConfiguration = .defaultConfiguration) async throws -> [Card] {
         guard let url = URLBuilder.buildURLWithParameters(parameters, andConfig: configuration) else {
@@ -116,6 +119,9 @@ final public class Magic {
         }
     }
     
+#if canImport(UIKit)
+    public typealias CardImageCompletion = (Result<UIImage>) -> Void
+    
     /// Retreives a UIImage based on the imageURL of the Card passed in
     ///
     /// - Parameters:
@@ -140,7 +146,37 @@ final public class Magic {
             completion(Result.error(NetworkError.fetchCardImageError("data from contents of url failed")))
         }
     }
-
+#endif
+    
+#if canImport(AppKit)
+    public typealias CardImageCompletion = (Result<NSImage>) -> Void
+    
+    /// Retreives a NSImage based on the imageURL of the Card passed in
+    ///
+    /// - Parameters:
+    ///   - card: The card you wish to get the image for.
+    ///   - completion: The completion handler (for success / failure response).
+    public func fetchImageForCard(_ card: Card, completion: @escaping CardImageCompletion) {
+        guard let imgurl = card.imageUrl else {
+            return completion(Result.error(NetworkError.fetchCardImageError("fetchImageForCard card imageURL was nil")))
+        }
+        
+        guard let url = URL(string: imgurl) else {
+            return completion(Result.error(NetworkError.fetchCardImageError("fetchImageForCard url build failed")))
+        }
+        
+        do {
+            let data = try Data(contentsOf: url)
+            guard let img = NSImage(data: data) else {
+                return completion(Result.error(NetworkError.fetchCardImageError("could not create uiimage from data")))
+            }
+            completion(Result.success(img))
+        } catch {
+            completion(Result.error(NetworkError.fetchCardImageError("data from contents of url failed")))
+        }
+    }
+#endif
+    
     /// This function simulates opening a booster pack for the given set, producing an array of [Card]
     ///
     /// - Parameters:

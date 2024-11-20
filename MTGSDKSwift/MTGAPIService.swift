@@ -44,6 +44,7 @@ final class MTGAPIService {
         }
     }
     
+    @available(iOS 15.0, *)
     func mtgAPIQuery<T: ResponseObject>(url: URL, responseObject: T.Type) async throws -> T {
         let networkOperation = NetworkOperation(url: url)
         
@@ -110,6 +111,7 @@ final private class NetworkOperation {
         }.resume()
     }
     
+    @available(iOS 15.0, *)
     func performOperation() async throws -> Data {
         let (data, response) = try await URLSession.shared.data(for: URLRequest(url: url))
         
